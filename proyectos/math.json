@@ -1,0 +1,28 @@
+{
+    "project": "Homework Assignment",
+    "title": "Derivative WorkSheet",
+    "double_column": false,
+    "date": "11/11/2024",
+    "author": "Signore",
+    "description": "This is a homework assignment for the Calculus I class at the ETITC.",
+    "students": ["Santiago", "Marisa", "Juan Pablo"],
+    "questions": [
+        {
+            "type": "generic",
+            "statement": ["QSBjb250aW51YWNpb24gbGEgZGVmaW5pY2lvbiBkZSBsYSBpbnRlZ3JhbCBwb3IgcGFydGVz", "XFtcaW50IHVkdj11di1caW50IHZkdVxd", "QmFzYWRvIGVuIGVzbywgcmVzdWVsdmEgbGFzIHNpZ3VpZW50ZXMgb3BlcmFjaW9uZXM="],
+            "choices": ["XGludCB4Y29zKHgpZHg="],
+            "solution": ["XGludCB4Y29zKHgpZHg="]
+        },
+        {
+            "type": "math_integer_one_step",
+            "statement": ["QSBjb250aW51YWNpb24gbGEgZGVmaW5pY2lvbiBkZSBsYSBpbnRlZ3JhbCBwb3IgcGFydGVz", "XFtcaW50IHVkdj11di1caW50IHZkdVxd", "QmFzYWRvIGVuIGVzbywgcmVzdWVsdmEgbGFzIHNpZ3VpZW50ZXMgb3BlcmFjaW9uZXM="],
+            "equation": ["XGludCB4Y29zKHgpZHg="],
+            "quantity": 2,
+            "multiple_choice": true,
+            "configuration": {
+                "min_integer": 1,
+                "max_integer": 10
+            }
+        }
+    ]
+}
