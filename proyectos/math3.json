@@ -5,7 +5,7 @@
     "date": "11/11/2024",
     "author": "Signore",
     "description": "This is a homework assignment for the Calculus I class at the ETITC.",
-    "students": ["Santiago", "Jose"],
+    "students": ["Santiago", "Adrian"],
     "questions": [
         {
             "type": "generic",
