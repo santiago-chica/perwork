@@ -33,18 +33,11 @@ def generic(question:dict, doc:Document, questionEnum):
 def mathIntegerOneStep(question:dict, doc:Document, questionEnum):
     pass
 
-
-
 def parseQuestion(question:dict):
     return {
         'generic': generic,
         'math_integer_one_step': mathIntegerOneStep
     }.get(question['type'], generic)
-
-
-
-    
-
 
 if __name__ == '__main__':
 
