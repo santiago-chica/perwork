@@ -25,16 +25,6 @@ def listToEnumerate(list:list, doc:Document):
 
 # Type related functions
 
-def generic(question:dict, doc:Document, questionEnum):
-
-    if not (question['statement'] and question['choices'] and question['solution']):
-        return
-
-    questionEnum.add_item(r'')
-
-    listToLaTeX(question['statement'], doc)
-    listToEnumerate(question['choices'], doc)
-
 def generic(question:dict, doc:Document, questionEnum) -> None:
 
     if not (question['statement'] and question['choices'] and question['solution']):
@@ -44,7 +34,6 @@ def generic(question:dict, doc:Document, questionEnum) -> None:
 
     listToLaTeX(question['statement'], doc)
     listToEnumerate(question['choices'], doc)
-
 
 def math(question:dict, doc:Document, questionEnum) -> None:
     if not (question['statement'] and question['quantity'] and question['operation']):
@@ -59,5 +48,5 @@ def math(question:dict, doc:Document, questionEnum) -> None:
 def parseQuestion(question:dict):
     return {
         'generic': generic,
-        'math_integer_one_step': math
+        'math': math
     }.get(question['type'], generic)

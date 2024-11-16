@@ -1,9 +1,6 @@
-from pathlib import Path
+from sympy import symbols, solve, sqrt, Eq
+from sympy.abc import x, y
 
-origin = Path('export') / 'H fd i'
-
-# Hello world!
-
-print('Hi!')
-
-origin.mkdir(exist_ok=True, parents=True)
+this = Eq(-2 * x, 3)
+print(this._repr_latex_())
+print(solve(this, x))
