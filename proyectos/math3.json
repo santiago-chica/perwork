@@ -14,10 +14,15 @@
             "solution": ["XGludCB4Y29zKHgpZHg="]
         },
         {
-            "type": "generic",
-            "statement": ["QSBjb250aW51YWNpb24gbGEgZGVmaW5pY2lvbiBkZSBsYSBpbnRlZ3JhbCBwb3IgcGFydGVz","XFtcaW50IHVkdj11di1caW50IHZkdVxd", "QmFzYWRvIGVuIGVzbywgcmVzdWVsdmEgbGFzIHNpZ3VpZW50ZXMgb3BlcmFjaW9uZXM="],
-            "choices": [["XChcaW50IHhjb3MoeClkeFwp="],["XChcaW50IHhjb3MoeClkeFwp="],["XChcaW50IHhjb3MoeClkeFwp="],["XChcaW50IHhjb3MoeClkeFwp="]],
-            "solution": ["XGludCB4Y29zKHgpZHg="]
+            "type": "math",
+            "statement": ["QSBjb250aW51YWNpb24gbGEgZGVmaW5pY2lvbiBkZSBsYSBpbnRlZ3JhbCBwb3IgcGFydGVz", "XFtcaW50IHVkdj11di1caW50IHZkdVxd", "QmFzYWRvIGVuIGVzbywgcmVzdWVsdmEgbGFzIHNpZ3VpZW50ZXMgb3BlcmFjaW9uZXM="],
+            "quantity": 10,
+            "multiple_choice": 4,
+            "operation": "integer_one_step_equation",
+            "configuration": {
+                "minimum_integer": -10,
+                "maximum_integer": 10
+            }
         }
     ]
 }

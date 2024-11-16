@@ -1,4 +1,5 @@
 from base64 import b64decode
+from math_parser import parseMath
 from pylatex import (
     Document,
     Math,
@@ -6,6 +7,8 @@ from pylatex import (
     Enumerate,
     UnsafeCommand
 )
+
+# Latex related functions
 
 def listToLaTeX(list:list, doc:Document):
     for element in list:
@@ -20,6 +23,8 @@ def listToEnumerate(list:list, doc:Document):
                 decodedElement = b64decode(element).decode()
                 doc.append(NoEscape(decodedElement))
 
+# Type related functions
+
 def generic(question:dict, doc:Document, questionEnum):
 
     if not (question['statement'] and question['choices'] and question['solution']):
@@ -30,44 +35,29 @@ def generic(question:dict, doc:Document, questionEnum):
     listToLaTeX(question['statement'], doc)
     listToEnumerate(question['choices'], doc)
 
-def mathIntegerOneStep(question:dict, doc:Document, questionEnum):
-    pass
+def generic(question:dict, doc:Document, questionEnum) -> None:
+
+    if not (question['statement'] and question['choices'] and question['solution']):
+        return
+
+    questionEnum.add_item(r'')
+
+    listToLaTeX(question['statement'], doc)
+    listToEnumerate(question['choices'], doc)
+
+
+def math(question:dict, doc:Document, questionEnum) -> None:
+    if not (question['statement'] and question['quantity'] and question['operation']):
+        return
+
+    questionEnum.add_item(r'')
+
+    listToLaTeX(question['statement'], doc)
+    parseMath(question)(question, doc)
+    
 
 def parseQuestion(question:dict):
     return {
         'generic': generic,
-        'math_integer_one_step': mathIntegerOneStep
+        'math_integer_one_step': math
     }.get(question['type'], generic)
-
-if __name__ == '__main__':
-
-    data_table = [{
-        "type": "generic",
-        "statement": [
-            "QSBjb250aW51YWNpb24gbGEgZGVmaW5pY2lvbiBkZSBsYSBpbnRlZ3JhbCBwb3IgcGFydGVz",
-            "XFtcaW50IHVkdj11di1caW50IHZkdVxd",
-            "QmFzYWRvIGVuIGVzbywgcmVzdWVsdmEgbGFzIHNpZ3VpZW50ZXMgb3BlcmFjaW9uZXM="
-        ],
-        "choices": ["XGludCB4Y29zKHgpZHg="],
-        "solution": ["XGludCB4Y29zKHgpZHg="]
-    },
-    {
-        "type": "math_integer_one_step",
-        "statement": [
-            "QSBjb250aW51YWNpb24gbGEgZGVmaW5pY2lvbiBkZSBsYSBpbnRlZ3JhbCBwb3IgcGFydGVz",
-            "XFtcaW50IHVkdj11di1caW50IHZkdVxd",
-            "QmFzYWRvIGVuIGVzbywgcmVzdWVsdmEgbGFzIHNpZ3VpZW50ZXMgb3BlcmFjaW9uZXM="
-        ],
-        "equation": ["XGludCB4Y29zKHgpZHg="],
-        "quantity": 2,
-        "multiple_choice": True,
-        "configuration": {
-            "min_integer": 1,
-            "max_integer": 10
-        }
-    }]
-    
-    pregunta1 = data_table[0]
-    pregunta2 = data_table[1]
-
-    parseQuestion(pregunta1)
