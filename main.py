@@ -1,3 +1,3 @@
 import interpreter
 
-interpreter.exportAssignment('proyectos/example.json')
+interpreter.export_assignment('proyectos/example.json')

@@ -6,21 +6,18 @@ from pylatex import (
     Foot,
     Enumerate,
     NoEscape,
-    Section,
-    Package,
-    Subsection,
-    Math,
+    Package
 )
 from json import load as jsonLoad
 from base64 import b64decode
 from pathlib import Path
-from math_parser import obtainSheet
+from question_parser import obtain_sheet
 
 # Directory related functions
 
 EXPORT_FOLDER = 'export'
 
-def verifyDirectories(projectStr:str):
+def verify_directories(projectStr:str):
     path = Path(EXPORT_FOLDER) / projectStr
 
     path.mkdir(exist_ok=True, parents=True)
@@ -29,14 +26,14 @@ def verifyDirectories(projectStr:str):
 
 # LaTeX related functions
 
-def listToLaTeX(list:list, doc:Document):
+def list_to_latex(list:list, doc:Document):
     if not list:
         return
     for element in list:
         decodedElement = b64decode(element).decode()
         doc.append(NoEscape(decodedElement))
 
-def listToEnumerate(list:list, doc:Document):
+def list_to_enumerate(list:list, doc:Document):
     if not list or not list[0]:
         return
     with doc.create(Enumerate(enumeration_symbol=r'{\Alph*) }', options=NoEscape('wide, labelwidth=!, labelindent=0pt'))) as enum:
@@ -48,14 +45,14 @@ def listToEnumerate(list:list, doc:Document):
 
 # Export assignment function (LaTeX)
 
-def exportAssignment(jsonPath:str):
+def export_assignment(jsonPath:str):
 
     with open(jsonPath, 'r') as file:
         table_data = jsonLoad(file)
 
-    exportFolder = verifyDirectories(table_data['project'])
+    exportFolder = verify_directories(table_data['project'])
 
-    sheet = obtainSheet(table_data['students'], table_data['questions'])
+    sheet = obtain_sheet(table_data['students'], table_data['questions'])
 
     header = PageStyle('header', header_thickness=0.2, footer_thickness=0.2)
 
@@ -98,9 +95,9 @@ def exportAssignment(jsonPath:str):
         with doc.create(Enumerate(enumeration_symbol=enum_symbol, options=NoEscape('wide, labelwidth=!, labelindent=0pt'))) as enum:
             for question in entry['questions']:
                 enum.add_item(r'')
-                listToLaTeX(question['statement'], doc)
-                listToEnumerate(question['choices'], doc)
-                listToLaTeX(question['answer'], doc)
+                list_to_latex(question['statement'], doc)
+                list_to_enumerate(question['choices'], doc)
+                list_to_latex(question['answer'], doc)
 
         exportPath = exportFolder / f'{position}. {table_data["title"]} ({entry["student"]})'
 
