@@ -1,3 +1,3 @@
 import interpreter
 
-interpreter.exportAssignment('proyectos/math3.json')
+interpreter.exportAssignment('proyectos/example.json')

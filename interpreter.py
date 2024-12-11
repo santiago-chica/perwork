@@ -14,6 +14,7 @@ from pylatex import (
 from json import load as jsonLoad
 from base64 import b64decode
 from pathlib import Path
+from math_parser import obtainSheet
 
 # Directory related functions
 
@@ -29,11 +30,15 @@ def verifyDirectories(projectStr:str):
 # LaTeX related functions
 
 def listToLaTeX(list:list, doc:Document):
+    if not list:
+        return
     for element in list:
         decodedElement = b64decode(element).decode()
         doc.append(NoEscape(decodedElement))
 
 def listToEnumerate(list:list, doc:Document):
+    if not list or not list[0]:
+        return
     with doc.create(Enumerate(enumeration_symbol=r'{\Alph*) }', options=NoEscape('wide, labelwidth=!, labelindent=0pt'))) as enum:
         for option in list:
             enum.add_item(r'')
@@ -49,29 +54,8 @@ def exportAssignment(jsonPath:str):
         table_data = jsonLoad(file)
 
     exportFolder = verifyDirectories(table_data['project'])
-    
-    sheet = [
-        {
-            'student': 'Santiago Chica',
-            'questions': [
-                {
-                    'statement': ["QSBjb250aW51YWNpb24gbGEgZGVmaW5pY2lvbiBkZSBsYSBpbnRlZ3JhbCBwb3IgcGFydGVz", "XFtcaW50IHVkdj11di1caW50IHZkdVxd", "QmFzYWRvIGVuIGVzbywgcmVzdWVsdmEgbGFzIHNpZ3VpZW50ZXMgb3BlcmFjaW9uZXM="],
-                    'options': [["SW50ZWdyYWwgZGVmaW5pZGFcXA==","XChcaW50IHhjb3MoeClkeFwp="],["XChcaW50IHhjb3MoeClkeFwp="],["XChcaW50IHhjb3MoeClkeFwp="],["XChcaW50IHhjb3MoeClkeFwp="]],
-                    'answer': ["XFtcaW50IHhjb3MoeClkeFxd"]
-                }
-            ]
-        },
-        {
-            'student': 'Santiago Garzon',
-            'questions': [
-                {
-                    'statement': ["QSBjb250aW51YWNpb24gbGEgZGVmaW5pY2lvbiBkZSBsYSBpbnRlZ3JhbCBwb3IgcGFydGVz", "XFtcaW50IHVkdj11di1caW50IHZkdVxd", "QmFzYWRvIGVuIGVzbywgcmVzdWVsdmEgbGFzIHNpZ3VpZW50ZXMgb3BlcmFjaW9uZXM="],
-                    'options': [],
-                    'answer': ["XFtcaW50IHhjb3MoeClkeFxd"]
-                }
-            ]
-        }
-    ]
+
+    sheet = obtainSheet(table_data['students'], table_data['questions'])
 
     header = PageStyle('header', header_thickness=0.2, footer_thickness=0.2)
 
@@ -89,7 +73,7 @@ def exportAssignment(jsonPath:str):
         )
 
         doc.packages.append(Package('enumerate'))
-
+        doc.packages.append(Package('amsmath'))
 
         with header.create(Head("L")):
             header.append(entry['student'])
@@ -106,21 +90,18 @@ def exportAssignment(jsonPath:str):
         doc.preamble.append(header)
         doc.change_document_style('header')
 
-        doc.append(table_data['description'])
+        description = b64decode(table_data['description']).decode()
+        doc.append(description)
 
         doc.preamble.append(Command('setlength', arguments=[Command('headheight'), '15pt']))
-
-
-        with doc.create(Enumerate(enumeration_symbol=r'{Question \arabic*. }', options=NoEscape('wide, labelwidth=!, labelindent=0pt'))) as enum:
+        enum_symbol = r'{' + NoEscape(table_data['question_keyword']) + r' \arabic*. }'
+        with doc.create(Enumerate(enumeration_symbol=enum_symbol, options=NoEscape('wide, labelwidth=!, labelindent=0pt'))) as enum:
             for question in entry['questions']:
                 enum.add_item(r'')
                 listToLaTeX(question['statement'], doc)
-                listToEnumerate(question['options'], doc)
+                listToEnumerate(question['choices'], doc)
                 listToLaTeX(question['answer'], doc)
 
-                
-                
-        
         exportPath = exportFolder / f'{position}. {table_data["title"]} ({entry["student"]})'
 
         doc.generate_pdf(str(exportPath), clean_tex=False)

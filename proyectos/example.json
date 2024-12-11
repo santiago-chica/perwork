@@ -4,20 +4,20 @@
     "double_column": false,
     "date": "11/11/2024",
     "author": "Signore",
-    "description": "Iremiaa.",
+    "description": "RXN0byBlcyB1biB0ZXh0byBkZSBwcnVlYmEuLi4=",
+    "question_keyword": "Pregunta",
     "students": ["Santiago", "Arthur Macluf"],
     "questions": [
         {
             "type": "generic",
             "statement": ["QSBjb250aW51YWNpb24gbGEgZGVmaW5pY2lvbiBkZSBsYSBpbnRlZ3JhbCBwb3IgcGFydGVz", "XFtcaW50IHVkdj11di1caW50IHZkdVxd", "QmFzYWRvIGVuIGVzbywgcmVzdWVsdmEgbGFzIHNpZ3VpZW50ZXMgb3BlcmFjaW9uZXM="],
-            "choices": [["SW50ZWdyYWwgZGVmaW5pZGFcXA==","XChcaW50IHhjb3MoeClkeFwp="],["XChcaW50IHhjb3MoeClkeFwp="],["XChcaW50IHhjb3MoeClkeFwp="],["XChcaW50IHhjb3MoeClkeFwp="]],
-            "solution": ["XGludCB4Y29zKHgpZHg="]
+            "choices": [["SW50ZWdyYWwgZGVmaW5pZGFcXA=="],["XChcaW50IHhjb3MoeClkeFwp="],["XChcaW50IHhjb3MoeClkeFwp="],["XChcaW50IHhjb3MoeClkeFwp="]],
+            "answer": ["XFsgeF5uICsgeV5uID0gel5uIFxd"]
         },
         {
-            "type": "math",
-            "statement": ["QSBjb250aW51YWNpb24gbGEgZGVmaW5pY2lvbiBkZSBsYSBpbnRlZ3JhbCBwb3IgcGFydGVz", "XFtcaW50IHVkdj11di1caW50IHZkdVxd", "QmFzYWRvIGVuIGVzbywgcmVzdWVsdmEgbGFzIHNpZ3VpZW50ZXMgb3BlcmFjaW9uZXM="],
-            "quantity": 20,
-            "operation": "integer_one_step_equation",
+            "type": "integer_one_step_equation",
+            "statement": ["UmVzdWVsdmEgbGEgZWN1YWNpb24u"],
+            "quantity": 2,
             "configuration": {
                 "minimum_integer": 0,
                 "maximum_integer": 10

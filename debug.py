@@ -1,5 +1,4 @@
-from sympy import symbols, solve, sqrt, Eq
-from sympy.abc import x, y
+b = "asdsdsd"
+a = r'{' + b + r'\arabic*. }'
 
-this = Eq(-2 * x, 3)
-print(solve(this, x)[0])
+print(a)
