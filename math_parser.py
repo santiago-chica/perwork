@@ -21,7 +21,7 @@ def integerOneStepEquation(question:dict, doc:Document):
     with doc.create(Enumerate(enumeration_symbol=r'{\alph*) }', options=NoEscape('wide, labelwidth=!, labelindent=0pt'))) as enum:
         for i in range(question['quantity']):
             equation = Eq(choice(domain) * x, choice(domain))
-            solutions.append(solve(equation, x))
+            solutions.append(solve(equation, x)[0])
             enum.add_item(NoEscape(equation._repr_latex_()))
     
     print(solutions)
