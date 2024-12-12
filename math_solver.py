@@ -26,11 +26,9 @@ def arithmetic_int_add(question:dict):
         2
     )
 
-    equation = Add(l, r, evaluate=False)
-
-    statement = latex(equation, mode='equation*', order='none')
+    statement = Add(l, r, evaluate=False)
     choices = [[]]
-    answer = latex(equation.simplify(), mode='equation*')
+    answer = statement.simplify()
 
     return (statement, choices, answer)
 
@@ -44,11 +42,9 @@ def arithmetic_int_sub(question:dict):
         2
     )
 
-    equation = Add(l, -r, evaluate=False)
-
-    statement = latex(equation, mode='equation*', order='none')
+    statement = Add(l, -r, evaluate=False)
     choices = [[]]
-    answer = latex(equation.simplify(), mode='equation*')
+    answer = statement.simplify()
 
     return (statement, choices, answer)
 
@@ -65,20 +61,17 @@ def calculus_deriv_power(question:dict):
         [0],
         1
     )[0]
+
     coefficient = get_numbers_in_range(
         config_table['minimum_coefficient'],
         config_table['maximum_coefficient'],
         [0],
         1
     )[0]
-    f = coefficient * x ** exponent
-    f_prime = diff(f, x)
 
-    statement = latex(f, mode='equation*')
+    statement = coefficient * x ** exponent
     choices = [[]]
-    answer = latex(f_prime, mode='equation*')
-
-    
+    answer = diff(statement, x)
 
     return (statement, choices, answer)
 
@@ -95,11 +88,9 @@ def algebra_eq_int_one_step(question:dict):
         can_repeat=False
     )
 
-    equation = Eq(l * x, r)
-
-    statement = latex(equation, mode='equation*')
+    statement = Eq(l * x, r)
     choices = [[]]
-    answer = latex(solve(equation, x)[0], mode='equation*')
+    answer = solve(statement, x)[0]
 
     return (statement, choices, answer)
 

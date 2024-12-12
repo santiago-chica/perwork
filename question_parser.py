@@ -1,5 +1,6 @@
 from utils import base_64_encode
 from math_solver import parse_math
+from sympy import latex
 
 def generic(question:dict):
     return [
@@ -18,6 +19,9 @@ def math(question:dict):
     for _ in range(quantity):
 
         statement, choices, answer = parse_math(question)
+
+        statement = latex(statement, mode='equation*', order='none')
+        answer = latex(answer, mode='equation*', order='none')
 
         parsedQuestions.append(
             {
