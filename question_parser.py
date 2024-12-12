@@ -1,5 +1,5 @@
 from utils import base_64_encode
-import math_solver
+from math_solver import parse_math
 
 def generic(question:dict):
     return [
@@ -17,7 +17,7 @@ def math(question:dict):
 
     for _ in range(quantity):
 
-        statement, choices, answer = math_solver.integerOneStepEquation(question)
+        statement, choices, answer = parse_math(question)
 
         parsedQuestions.append(
             {

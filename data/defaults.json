@@ -1,0 +1,20 @@
+{
+    "arithmetic_int_add": {
+        "minimum_integer": 0,
+        "maximum_integer": 10
+    },
+    "arithmetic_int_sub": {
+        "minimum_integer": 0,
+        "maximum_integer": 10
+    },
+    "algebra_eq_int_one_step": {
+        "minimum_integer": 0,
+        "maximum_integer": 10
+    },
+    "calculus_deriv_power": {
+        "minimum_exponent": 1,
+        "maximum_exponent": 6,
+        "minimum_coefficient": -10,
+        "maximum_coefficient": 10
+    }
+}

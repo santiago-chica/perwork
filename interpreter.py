@@ -8,7 +8,7 @@ from pylatex import (
     NoEscape,
     Package
 )
-from json import load as jsonLoad
+from json import load as json_load
 from base64 import b64decode
 from pathlib import Path
 from question_parser import obtain_sheet
@@ -48,7 +48,7 @@ def list_to_enumerate(list:list, doc:Document):
 def export_assignment(jsonPath:str):
 
     with open(jsonPath, 'r') as file:
-        table_data = jsonLoad(file)
+        table_data = json_load(file)
 
     exportFolder = verify_directories(table_data['project'])
 

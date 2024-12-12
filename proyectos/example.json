@@ -6,7 +6,7 @@
     "author": "Signore",
     "description": "RXN0byBlcyB1biB0ZXh0byBkZSBwcnVlYmEuLi4=",
     "question_keyword": "Pregunta",
-    "students": ["Santiago G.", "Santiago C."],
+    "students": ["Santiago G."],
     "questions": [
         {
             "type": "generic",
@@ -17,11 +17,43 @@
         {
             "type": "math",
             "statement": ["UmVzdWVsdmEgbGEgZWN1YWNpb24u"],
-            "quantity": 4,
-            "operation": "integer_one_step_equation",
+            "quantity": 1,
+            "operation": "algebra_eq_int_one_step",
             "configuration": {
-                "minimum_integer": -30,
-                "maximum_integer": 30
+                "minimum_integer": 0,
+                "maximum_integer": 10
+            }
+        },
+        {
+            "type": "math",
+            "statement": ["UmVzdWVsdmEgbGEgZWN1YWNpb24u"],
+            "quantity": 1,
+            "operation": "arithmetic_int_add",
+            "configuration": {
+                "minimum_integer": 0,
+                "maximum_integer": 10
+            }
+        },
+        {
+            "type": "math",
+            "statement": ["UmVzdWVsdmEgbGEgZWN1YWNpb24u"],
+            "quantity": 1,
+            "operation": "arithmetic_int_sub",
+            "configuration": {
+                "minimum_integer": 0,
+                "maximum_integer": 10
+            }
+        },
+        {
+            "type": "math",
+            "statement": ["UmVzdWVsdmEgbGEgZWN1YWNpb24u"],
+            "quantity": 10,
+            "operation": "calculus_deriv_power",
+            "configuration": {
+                "minimum_exponent": 1,
+                "maximum_exponent": 6,
+                "minimum_coefficient": -10,
+                "maximum_coefficient": 10
             }
         }
     ]
