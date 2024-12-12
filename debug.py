@@ -1,9 +1,21 @@
-from pathlib import Path
+from sympy import (symbols,
+                   Add,
+                   latex,
+                   solve,
+                   Symbol,
+                   StrPrinter,
+                   diff)
+from sympy.abc import x
+from numpy.random import choice
 
-origin = Path('export') / 'H fd i'
 
-# Hello world!
+if __name__ == '__main__':
 
-print('Hi!')
 
-origin.mkdir(exist_ok=True, parents=True)
+
+    f = 3 * x ** 4
+    dev = diff(f, x)
+
+    statement = latex(dev, mode='equation*', order='none')
+
+    print(statement)

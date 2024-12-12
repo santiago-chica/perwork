@@ -1,0 +1,60 @@
+{
+    "project": "Homework Assignment",
+    "title": "Derivative WorkSheet",
+    "double_column": false,
+    "date": "11/11/2024",
+    "author": "Signore",
+    "description": "RXN0byBlcyB1biB0ZXh0byBkZSBwcnVlYmEuLi4=",
+    "question_keyword": "Pregunta",
+    "students": ["Santiago G."],
+    "questions": [
+        {
+            "type": "generic",
+            "statement": ["QSBjb250aW51YWNpb24gbGEgZGVmaW5pY2lvbiBkZSBsYSBpbnRlZ3JhbCBwb3IgcGFydGVz", "XFtcaW50IHVkdj11di1caW50IHZkdVxd", "QmFzYWRvIGVuIGVzbywgcmVzdWVsdmEgbGFzIHNpZ3VpZW50ZXMgb3BlcmFjaW9uZXM="],
+            "choices": [["SW50ZWdyYWwgZGVmaW5pZGFcXA=="],["XChcaW50IHhjb3MoeClkeFwp="],["XChcaW50IHhjb3MoeClkeFwp="],["XChcaW50IHhjb3MoeClkeFwp="]],
+            "answer": ["XFsgeF5uICsgeV5uID0gel5uIFxd"]
+        },
+        {
+            "type": "math",
+            "statement": ["UmVzdWVsdmEgbGEgZWN1YWNpb24u"],
+            "quantity": 1,
+            "operation": "algebra_eq_int_one_step",
+            "configuration": {
+                "minimum_integer": 0,
+                "maximum_integer": 10
+            }
+        },
+        {
+            "type": "math",
+            "statement": ["UmVzdWVsdmEgbGEgZWN1YWNpb24u"],
+            "quantity": 1,
+            "operation": "arithmetic_int_add",
+            "configuration": {
+                "minimum_integer": 0,
+                "maximum_integer": 10
+            }
+        },
+        {
+            "type": "math",
+            "statement": ["UmVzdWVsdmEgbGEgZWN1YWNpb24u"],
+            "quantity": 1,
+            "operation": "arithmetic_int_sub",
+            "configuration": {
+                "minimum_integer": 0,
+                "maximum_integer": 10
+            }
+        },
+        {
+            "type": "math",
+            "statement": ["UmVzdWVsdmEgbGEgZWN1YWNpb24u"],
+            "quantity": 10,
+            "operation": "calculus_deriv_power",
+            "configuration": {
+                "minimum_exponent": 1,
+                "maximum_exponent": 6,
+                "minimum_coefficient": -10,
+                "maximum_coefficient": 10
+            }
+        }
+    ]
+}
