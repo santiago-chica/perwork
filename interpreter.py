@@ -8,8 +8,9 @@ from pylatex import (
     NoEscape,
     Package
 )
-from json import load as json_load
+from zipfile import ZipFile
 from base64 import b64decode
+from json import load as json_load
 from pathlib import Path
 from question_parser import obtain_sheet
 
@@ -17,8 +18,8 @@ from question_parser import obtain_sheet
 
 EXPORT_FOLDER = 'export'
 
-def verify_directories(projectStr:str):
-    path = Path(EXPORT_FOLDER) / projectStr
+def verify_directories(project_str:str):
+    path = Path(EXPORT_FOLDER) / project_str
 
     path.mkdir(exist_ok=True, parents=True)
 
@@ -30,8 +31,8 @@ def list_to_latex(list:list, doc:Document):
     if not list:
         return
     for element in list:
-        decodedElement = b64decode(element).decode()
-        doc.append(NoEscape(decodedElement))
+        decoded_element = b64decode(element).decode()
+        doc.append(NoEscape(decoded_element))
 
 def list_to_enumerate(list:list, doc:Document):
     if not list or not list[0]:
@@ -40,21 +41,21 @@ def list_to_enumerate(list:list, doc:Document):
         for option in list:
             enum.add_item(r'')
             for element in option:
-                decodedElement = b64decode(element).decode()
-                doc.append(NoEscape(decodedElement))
+                decoded_element = b64decode(element).decode()
+                doc.append(NoEscape(decoded_element))
 
 # Export assignment function (LaTeX)
 
-def export_assignment(jsonPath:str):
+def export_assignment(table_data):
+    export_folder = verify_directories(table_data['project'])
 
-    with open(jsonPath, 'r') as file:
-        table_data = json_load(file)
-
-    exportFolder = verify_directories(table_data['project'])
+    zip_directory = export_folder / 'something.zip'
 
     sheet = obtain_sheet(table_data['students'], table_data['questions'])
 
     header = PageStyle('header', header_thickness=0.2, footer_thickness=0.2)
+
+    worksheet_paths = []
 
     for position, entry in enumerate(sheet, start=1):
 
@@ -99,6 +100,16 @@ def export_assignment(jsonPath:str):
                 list_to_enumerate(question['choices'], doc)
                 list_to_latex(question['answer'], doc)
 
-        exportPath = exportFolder / f'{position}. {table_data["title"]} ({entry["student"]})'
+        export_path = export_folder / f'{position}. {table_data["title"]} ({entry["student"]})'
+        worksheet_paths.append(export_path)
+        doc.generate_pdf(str(export_path), clean_tex=True)
+    with ZipFile(zip_directory, 'x') as zip:
+        for path in worksheet_paths:
+            print(path)
+            zip.write(str(path) + '.pdf')
 
-        doc.generate_pdf(str(exportPath), clean_tex=False)
+if __name__ == '__main__':
+    table_data = None
+    with open('proyectos/example.json', 'r') as data:
+        table_data = json_load(data)
+    export_assignment(table_data)
