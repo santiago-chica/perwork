@@ -9,11 +9,19 @@ app = Flask(__name__)
 def convert_json():
     try:
         json = request.get_json()
-        export_assignment(json)
-    except Exception:
+
+        memory_file = export_assignment(json)
+        memory_file.seek(0)
+
+        return send_file(
+            memory_file,
+            mimetype='application/zip',
+            download_name='perwork'
+        )
+
+    except Exception as e:
+        print(e.__str__())
         return {'success': False}
-    
-    return {'success': True}
 
 if __name__ == '__main__':
     app.run()
