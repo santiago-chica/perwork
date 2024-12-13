@@ -1,5 +1,6 @@
 from utils import base_64_encode
 from math_solver import parse_math
+from sympy import latex
 
 def generic(question:dict):
     return [
@@ -13,13 +14,16 @@ def generic(question:dict):
 def math(question:dict):
     quantity = question['quantity']
     
-    parsedQuestions = []
+    parsed_questions = []
 
     for _ in range(quantity):
 
         statement, choices, answer = parse_math(question)
 
-        parsedQuestions.append(
+        statement = latex(statement, mode='equation*', order='none')
+        answer = latex(answer, mode='equation*', order='none')
+
+        parsed_questions.append(
             {
                 'statement': question['statement'] + [base_64_encode(statement)],
                 'choices': [[]],
@@ -27,7 +31,7 @@ def math(question:dict):
             }
         )
 
-    return parsedQuestions
+    return parsed_questions
 
 def parse_question(question:dict):
     return {
@@ -40,15 +44,15 @@ def obtain_sheet(students, questions):
 
     for student in students:
 
-        studentEntry = {
+        student_entry = {
             'student': student,
             'questions': []
         }
         
         for question in questions:
-            parsedQuestion = parse_question(question)
-            studentEntry['questions'].extend(parsedQuestion)
-        sheet.append(studentEntry)
+            parsed_question = parse_question(question)
+            student_entry['questions'].extend(parsed_question)
+        sheet.append(student_entry)
     return sheet
 
 if __name__ == '__main__':

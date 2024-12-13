@@ -1,17 +1,29 @@
 {
     "arithmetic_int_add": {
+        "category": "Arithmetic",
+        "subcategory": "Integer",
+        "operation": "Add",
         "minimum_integer": 0,
         "maximum_integer": 10
     },
     "arithmetic_int_sub": {
+        "category": "Arithmetic",
+        "subcategory": "Integer",
+        "operation": "Substract",
         "minimum_integer": 0,
         "maximum_integer": 10
     },
     "algebra_eq_int_one_step": {
+        "category": "Algebra",
+        "subcategory": "Equation Solving",
+        "operation": "Integer one step equations",
         "minimum_integer": 0,
         "maximum_integer": 10
     },
     "calculus_deriv_power": {
+        "category": "Calculus",
+        "subcategory": "Derivatives",
+        "operation": "Power rule",
         "minimum_exponent": 1,
         "maximum_exponent": 6,
         "minimum_coefficient": -10,

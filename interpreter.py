@@ -8,20 +8,24 @@ from pylatex import (
     NoEscape,
     Package
 )
-from json import load as json_load
+from zipfile import ZipFile
 from base64 import b64decode
+from json import load as json_load
 from pathlib import Path
 from question_parser import obtain_sheet
+from os import remove as remove_file
 
 # Directory related functions
 
 EXPORT_FOLDER = 'export'
-
-def verify_directories(projectStr:str):
-    path = Path(EXPORT_FOLDER) / projectStr
+WORKSHEET_FOLDER = 'worksheets'
+SOLVED_WORkSHEETS_FOLDER = 'solved_worksheets'
+def verify_directories(project_str:str):
+    path = Path(EXPORT_FOLDER)
 
     path.mkdir(exist_ok=True, parents=True)
-
+    (path / WORKSHEET_FOLDER).mkdir(exist_ok=True, parents=True)
+    (path / SOLVED_WORkSHEETS_FOLDER).mkdir(exist_ok=True, parents=True)
     return path
 
 # LaTeX related functions
@@ -30,8 +34,8 @@ def list_to_latex(list:list, doc:Document):
     if not list:
         return
     for element in list:
-        decodedElement = b64decode(element).decode()
-        doc.append(NoEscape(decodedElement))
+        decoded_element = b64decode(element).decode()
+        doc.append(NoEscape(decoded_element))
 
 def list_to_enumerate(list:list, doc:Document):
     if not list or not list[0]:
@@ -40,24 +44,35 @@ def list_to_enumerate(list:list, doc:Document):
         for option in list:
             enum.add_item(r'')
             for element in option:
-                decodedElement = b64decode(element).decode()
-                doc.append(NoEscape(decodedElement))
+                decoded_element = b64decode(element).decode()
+                doc.append(NoEscape(decoded_element))
 
 # Export assignment function (LaTeX)
 
-def export_assignment(jsonPath:str):
+def export_assignment(table_data):
+    export_folder = verify_directories(table_data['project'])
 
-    with open(jsonPath, 'r') as file:
-        table_data = json_load(file)
-
-    exportFolder = verify_directories(table_data['project'])
+    zip_directory = export_folder / 'something.zip'
 
     sheet = obtain_sheet(table_data['students'], table_data['questions'])
 
     header = PageStyle('header', header_thickness=0.2, footer_thickness=0.2)
 
-    for position, entry in enumerate(sheet, start=1):
+    worksheet_paths = []
 
+    iterate_assignment(table_data, export_folder, sheet, header, worksheet_paths)
+    iterate_assignment(table_data, export_folder, sheet, header, worksheet_paths, answer=True)
+
+    with ZipFile(zip_directory, 'x') as zip:
+        for path in worksheet_paths:
+            if not path['answer']:
+                zip.write(str(path['path']) + '.pdf', f"{WORKSHEET_FOLDER}/{path['file_name']}.pdf")
+            else:
+                zip.write(str(path['path']) + '.pdf', f"{SOLVED_WORkSHEETS_FOLDER}/{path['file_name']}.pdf")
+            remove_file(str(path['path']) + '.pdf')
+
+def iterate_assignment(table_data, export_folder, sheet, header, worksheet_paths, answer=False):
+    for position, entry in enumerate(sheet, start=1):
         document_options = ['12pt']
 
         if table_data['double_column']:
@@ -97,8 +112,25 @@ def export_assignment(jsonPath:str):
                 enum.add_item(r'')
                 list_to_latex(question['statement'], doc)
                 list_to_enumerate(question['choices'], doc)
-                list_to_latex(question['answer'], doc)
+                if answer:
+                    list_to_latex(question['answer'], doc)
 
-        exportPath = exportFolder / f'{position}. {table_data["title"]} ({entry["student"]})'
+        file_name =f'{position}. {table_data["title"]} ({entry["student"]})'
+        directory = 'worksheets' if not answer else 'solved_worksheets'
+        export_path = export_folder / directory / file_name
 
-        doc.generate_pdf(str(exportPath), clean_tex=False)
+        worksheet_paths.append({
+                'path': export_path,
+                'file_name': file_name,
+                'answer': answer
+        })
+
+        doc.generate_pdf(str(export_path), clean_tex=True)
+
+
+if __name__ == '__main__':
+    table_data = None
+    with open('proyectos/example.json', 'r') as data:
+        table_data = json_load(data)
+
+    export_assignment(table_data)

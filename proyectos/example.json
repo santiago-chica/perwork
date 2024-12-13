@@ -6,7 +6,7 @@
     "author": "Signore",
     "description": "RXN0byBlcyB1biB0ZXh0byBkZSBwcnVlYmEuLi4=",
     "question_keyword": "Pregunta",
-    "students": ["Santiago G."],
+    "students": ["Santiago", "Juan", "Diego"],
     "questions": [
         {
             "type": "generic",
@@ -27,10 +27,10 @@
         {
             "type": "math",
             "statement": ["UmVzdWVsdmEgbGEgZWN1YWNpb24u"],
-            "quantity": 1,
+            "quantity": 5,
             "operation": "arithmetic_int_add",
             "configuration": {
-                "minimum_integer": 0,
+                "minimum_integer": 1,
                 "maximum_integer": 10
             }
         },
