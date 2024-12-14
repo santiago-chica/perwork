@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=100, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Formulario</h1>
+    <form id="json_form">
+        <div>
+            <label for="json-file">Subir archivo en JSON</label>
+            <input type="file" name="json-file" id="json-file">
+            
+        </div>
+        <div>
+            <button type="button" id="send-button">Enviar</button>
+        </div>
+    </form>
+
+    <script>
+        document.getElementById('send-button').addEventListener('click', async () => {
+            const fileInput = document.getElementById('json-file');
+    
+            if (!fileInput.files.length) {
+                alert('Please select a JSON file.');
+                return;
+            }
+    
+            const file = fileInput.files[0];
+            const formData = new FormData();
+            const fileReader = new FileReader();
+            let jsonFile;
+
+            fileReader.onload = (e) => {
+                try {
+                    jsonFile = JSON.parse(e.target.result);
+                } catch {
+                    throw new Error('No se pudo leer JSON.')
+                }
+            }
+
+            formData.append('file', file);
+    
+            try {
+                const response = await fetch('http://127.0.0.1:5000/api/convert', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'applications/json'
+                    },
+                    body: jsonFile
+                });
+    
+                if (!response.ok) {
+                    throw new Error(`Server error: ${response.statusText}`);
+                }
+    
+                const contentDisposition = response.headers.get('Content-Disposition');
+                let filename = 'converted.zip';
+    
+                if (contentDisposition && contentDisposition.includes('filename=')) {
+                    const matches = contentDisposition.match(/filename="?([^\"]+)"?/);
+                    if (matches && matches[1]) {
+                        filename = matches[1];
+                    }
+                }
+    
+                const blob = await response.blob();
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                URL.revokeObjectURL(url);
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred during the conversion process.');
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,9 +1,11 @@
 from interpreter import export_assignment
 from flask import Flask, request, send_file
+from flask_cors import CORS
 from numpy.random import randint
 from pathlib import Path
 
 app = Flask(__name__)
+CORS(app)
 
 @app.post('/api/convert')
 def convert_json():
