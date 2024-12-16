@@ -13,6 +13,7 @@ from base64 import b64decode
 from json import load as json_load
 from pathlib import Path
 from question_parser import obtain_sheet
+from io import BytesIO
 from os import remove as remove_file
 
 # Directory related functions
@@ -52,7 +53,8 @@ def list_to_enumerate(list:list, doc:Document):
 def export_assignment(table_data):
     export_folder = verify_directories(table_data['project'])
 
-    zip_directory = export_folder / 'something.zip'
+
+    memory_file = BytesIO()
 
     sheet = obtain_sheet(table_data['students'], table_data['questions'])
 
@@ -63,13 +65,14 @@ def export_assignment(table_data):
     iterate_assignment(table_data, export_folder, sheet, header, worksheet_paths)
     iterate_assignment(table_data, export_folder, sheet, header, worksheet_paths, answer=True)
 
-    with ZipFile(zip_directory, 'x') as zip:
+    with ZipFile(memory_file, 'x') as zip:
         for path in worksheet_paths:
             if not path['answer']:
                 zip.write(str(path['path']) + '.pdf', f"{WORKSHEET_FOLDER}/{path['file_name']}.pdf")
             else:
                 zip.write(str(path['path']) + '.pdf', f"{SOLVED_WORkSHEETS_FOLDER}/{path['file_name']}.pdf")
             remove_file(str(path['path']) + '.pdf')
+    return memory_file
 
 def iterate_assignment(table_data, export_folder, sheet, header, worksheet_paths, answer=False):
     for position, entry in enumerate(sheet, start=1):
