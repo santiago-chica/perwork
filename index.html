@@ -19,64 +19,74 @@
     </form>
 
     <script>
+
+        function readFileAsText(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsText(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = () => reject(reader.error);
+            });
+        }
+        
+        async function sendJsonAndGetZip(jsonText) {
+            const apiUrl = "http://127.0.0.1:5000/api/convert"; // Replace with your API endpoint
+
+            const response = await fetch(apiUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: jsonText
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
+            }
+
+            return await response.blob();
+        }
+
+        function downloadZip(blob, filename) {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
         document.getElementById('send-button').addEventListener('click', async () => {
+
             const fileInput = document.getElementById('json-file');
-    
+
             if (!fileInput.files.length) {
-                alert('Please select a JSON file.');
+                alert('Elija un archivo en JSON.');
                 return;
             }
-    
+
             const file = fileInput.files[0];
-            const formData = new FormData();
-            const fileReader = new FileReader();
-            let jsonFile;
+            const jsonText = await readFileAsText(file)
 
-            fileReader.onload = (e) => {
-                try {
-                    jsonFile = JSON.parse(e.target.result);
-                } catch {
-                    throw new Error('No se pudo leer JSON.')
-                }
-            }
-
-            formData.append('file', file);
-    
             try {
-                const response = await fetch('http://127.0.0.1:5000/api/convert', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'applications/json'
-                    },
-                    body: jsonFile
-                });
-    
-                if (!response.ok) {
-                    throw new Error(`Server error: ${response.statusText}`);
-                }
-    
-                const contentDisposition = response.headers.get('Content-Disposition');
-                let filename = 'converted.zip';
-    
-                if (contentDisposition && contentDisposition.includes('filename=')) {
-                    const matches = contentDisposition.match(/filename="?([^\"]+)"?/);
-                    if (matches && matches[1]) {
-                        filename = matches[1];
+                const zipBlob = await sendJsonAndGetZip(jsonText);
+
+                const downloadBtn = document.createElement("button");
+                downloadBtn.textContent = "Descargar";
+                downloadBtn.id = "downloadBtn";
+                document.body.appendChild(downloadBtn)
+
+                downloadBtn.onclick = () => {
+                    if (zipBlob) {
+                        downloadZip(zipBlob, "result.zip");
+                    } else {
+                        console.log("Error...");
                     }
-                }
-    
-                const blob = await response.blob();
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = filename;
-                document.body.appendChild(a);
-                a.click();
-                a.remove();
-                URL.revokeObjectURL(url);
-            } catch (error) {
-                console.error('Error:', error);
-                alert('An error occurred during the conversion process.');
+                }                
+            } catch (err) {
+                console.log('Nope');
             }
         });
     </script>
