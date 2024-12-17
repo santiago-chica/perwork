@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=100, initial-scale=1.0">
     <title>Document</title>
+    <script src="index.js" defer></script>
 </head>
 <body>
     <h1>Generar</h1>
@@ -11,43 +12,45 @@
         
         <div>
             <label for="json_project">Nombre del proyecto</label> <br>
-            <input type="text" name="json_project" id="json_project" placeholder="Tarea" required>
+            <input type="text" name="json_project" id="json_project" placeholder="Tarea">
             <br>
             <label for="json_project">Título</label> <br>
-            <input type="text" name="json_title" id="json_title" placeholder="Trabajo" required>
+            <input type="text" name="json_title" id="json_title" placeholder="Trabajo">
             <br>
             <label for="json_double_column">Dos columnas</label> <br>
-            <input type="checkbox" name="json_double_column" id="json_double_column" required>
+            <input type="checkbox" name="json_double_column" id="json_double_column">
             <br>
             <label for="json_date">Fecha</label> <br>
-            <input type="date" name="json_date" id="json_date" required>
+            <input type="date" name="json_date" id="json_date">
             <br>
             <label for="json_author">Autor</label> <br>
-            <input type="text" name="json_author" id="json_author" placeholder="Autor" required>
+            <input type="text" name="json_author" id="json_author" placeholder="Autor">
             <br>
             <label for="json_description">Enunciado</label> <br>
-            <input type="text" name="json_description" id="json_description" placeholder="Descripción..." required>
+            <input type="text" name="json_description" id="json_description" placeholder="Descripción...">
             <br>
             <label for="json_question_keyword">Palabra de pregunta</label> <br>
-            <input type="text" name="json_question_keyword" id="json_question_keyword" placeholder="Pregunta" required>
+            <input type="text" name="json_question_keyword" id="json_question_keyword" placeholder="Pregunta">
             <br>
             <label for="json_students">Estudiantes</label> <br>
-            <input type="text" name="json_students" id="json_students" placeholder="Santiago, Juan, Diego" required>
+            <input type="text" name="json_students" id="json_students" placeholder="Santiago, Juan, Diego">
         </div>
+        <h2>Preguntas</h2>
         <div>
-            <table>
-                <tr>
-                    <td>Tabla</td>
-                    <td>Asd</td>
-                    <td>Asd</td>
-                </tr>
-            </table>
+            <div id="question_array">
+                <p>Pregunta</p>
+            </div>
+            <div>
+                <button type="button" id="add_question">+</button>
+                <button type="button" id="del_question">-</button>
+            </div>
         </div>
         <div>
             <button type="submit" id="json_submit">Enviar</button>
         </div>
     </form>
 
-    <script src="index.js"></script>
+    
+    
 </body>
 </html>

@@ -16,6 +16,16 @@ async function sendJsonAndGetZip(jsonText) {
     return await response.blob();
 }
 
+async function getDefaultJson() {
+    return await fetch('./data/question_types.json')
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Couldn't find JSON file.");
+            }
+            return response.json();
+    })
+}
+
 function downloadZip(blob, filename) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -31,7 +41,10 @@ function utf8_to_b64( str ) {
     return window.btoa(unescape(encodeURIComponent( str )));
 }
 
-document.getElementById("json_submit").addEventListener("click", async () => {
+// Submit the form
+
+document.getElementById("json_submit").addEventListener("click", async (e) => {
+    e.preventDefault();
     let final_json = {};
 
     const dateString = document.getElementById("json_date").value.replace(/-/g, '\/');
@@ -121,4 +134,77 @@ document.getElementById("json_submit").addEventListener("click", async () => {
         window.alert("Algo salio mal...");
     }
 
+
+
+})
+
+const questionArray = document.getElementById("question_array");
+
+function createStatement(parent, placeholder) {
+    const statement = document.createElement("input");
+    statement.type = "text";
+    statement.placeholder = placeholder;
+    parent.appendChild(statement);
+}
+
+
+
+document.getElementById("add_question").addEventListener("click", async (e) => {
+    e.preventDefault();
+    const newQuestion = document.createElement("div");
+    const category = document.createElement("select");
+    const defaultJSON = await getDefaultJson();
+    const defaultOption = document.createElement("option");
+
+    defaultOption.textContent = "Elija una categoría";
+    defaultOption.disabled = true;
+    defaultOption.selected = true;
+    category.appendChild(defaultOption);
+
+    defaultJSON.forEach(element => {
+        const option = document.createElement("option");
+        option.value = element.method;
+        option.textContent = element.label;
+        category.appendChild(option);
+    });
+
+    category.addEventListener("change", async (e) => {
+        const option = e.target.value;
+        const children = newQuestion.children;
+
+        console.log(children);
+
+        for (let i = 0; i < children.length; i++) {
+            const child = await children[i];
+            if (child.nodeName.toLowerCase() == "input"){
+                newQuestion.removeChild(child);
+            }
+        }
+        
+        switch (option){
+            case "generic":
+                createStatement(newQuestion, "Enunciado");
+                createStatement(newQuestion, "Elecciones");
+                createStatement(newQuestion, "Respuesta");
+                break;
+            case "math":
+                break;
+            default:
+                break;
+        }
+
+    })
+
+    newQuestion.appendChild(category);
+    questionArray.appendChild(newQuestion);
+
+})
+document.getElementById("del_question").addEventListener("click", (e) => {
+    e.preventDefault();
+    const children = questionArray.children
+    if (children.length < 1) {
+        console.warn("Not enough children");
+        return;
+    }
+    questionArray.removeChild(questionArray.lastChild);
 })
