@@ -18,6 +18,87 @@
         </div>
     </form>
 
+    <h1>Generar</h1>
+    <form id="perwork_json">
+        
+        <div>
+            <label for="json_project">Nombre del proyecto</label> <br>
+            <input type="text" name="json_project" id="json_project" placeholder="Tarea" required>
+            <br>
+            <label for="json_project">Título</label> <br>
+            <input type="text" name="json_title" id="json_title" placeholder="Guía" required>
+            <br>
+            <label for="json_double_column">Dos columnas</label> <br>
+            <input type="checkbox" name="json_double_column" id="json_double_column" required>
+            <br>
+            <label for="json_date">Fecha</label> <br>
+            <input type="date" name="json_date" id="json_date" required>
+            <br>
+            <label for="json_author">Autor</label> <br>
+            <input type="text" name="json_author" id="json_author" placeholder="Autor..." required>
+            <br>
+            <label for="json_description">Enunciado</label> <br>
+            <input type="text" name="json_description" id="json_description" placeholder="Descripción..." required>
+            <br>
+            <label for="json_question_keyword">Palabra de pregunta</label> <br>
+            <input type="text" name="json_question_keyword" id="json_question_keyword" placeholder="Pregunta" required>
+            <br>
+            <label for="json_students">Estudiantes</label> <br>
+            <input type="text" name="json_students" id="json_students" placeholder="Santiago, Juan, Diego" required>
+        </div>
+
+        <div>
+            <button type="submit" id="json_submit">Enviar</button>
+        </div>
+    </form>
+
+    <script>
+        document.getElementById("json_submit").addEventListener("click", async () => {
+            let final_json = {};
+
+            const dateString = document.getElementById("json_date").value.replace(/-/g, '\/');
+            const today =  dateString ? new Date(dateString) : new Date();
+
+            const todayString = today.toLocaleDateString();
+
+            final_json.project = document.getElementById("json_project").value || document.getElementById("json_project").placeholder;
+            final_json.title = document.getElementById("json_title").value || document.getElementById("json_title").placeholder;
+            final_json.double_column = document.getElementById("json_double_column").checked;
+            final_json.date = todayString;
+            final_json.author = document.getElementById("json_author").value || document.getElementById("json_author").placeholder;
+            final_json.description = document.getElementById("json_description").value || document.getElementById("json_description").placeholder;
+            final_json.question_keyword = document.getElementById("json_question_keyword").value || document.getElementById("json_question_keyword").placeholder;
+            final_json.json_students = document.getElementById("json_students").value || document.getElementById("json_students").placeholder;
+            final_json.json_students = final_json.json_students.replace(' ', '').split(',');
+            final_json.questions = [];
+            
+            final_json.description = btoa(final_json.description);
+            console.log(final_json);
+            final_json = JSON.stringify(final_json);
+
+            console.log(final_json);
+            try {
+                const zipBlob = await sendJsonAndGetZip(final_json);
+
+                const downloadBtn = document.createElement("button");
+                downloadBtn.textContent = "Descargar";
+                downloadBtn.id = "downloadBtn";
+                document.body.appendChild(downloadBtn);
+
+                downloadBtn.onclick = () => {
+                    if (zipBlob) {
+                        downloadZip(zipBlob, "archivos.zip");
+                    } else {
+                        throw new Error("Error al recibir el archivo");
+                    }
+                }
+            } catch(err) {
+                window.alert("Algo salio mal...");
+            }
+
+        })
+    </script>
+
     <script>
 
         function readFileAsText(file) {
@@ -68,7 +149,7 @@
             }
 
             const file = fileInput.files[0];
-            const jsonText = await readFileAsText(file)
+            const jsonText = await readFileAsText(file);
 
             try {
                 const zipBlob = await sendJsonAndGetZip(jsonText);
