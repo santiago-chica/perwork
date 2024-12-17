@@ -1,0 +1,10 @@
+[
+    {
+        "label": "Pregunta Generica",
+        "method": "generic"
+    },
+    {
+        "label": "Pregunta Matematica",
+        "method": "math"
+    }
+]
