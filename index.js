@@ -16,8 +16,18 @@ async function sendJsonAndGetZip(jsonText) {
     return await response.blob();
 }
 
-async function getDefaultJson() {
+async function getQuestionTypes() {
     return await fetch('./data/question_types.json')
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Couldn't find JSON file.");
+            }
+            return response.json();
+    })
+}
+
+async function getMathTypes() {
+    return await fetch('./data/math_types.json')
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Couldn't find JSON file.");
@@ -62,54 +72,7 @@ document.getElementById("json_submit").addEventListener("click", async (e) => {
     final_json.students = document.getElementById("json_students").value || document.getElementById("json_students").placeholder;
     final_json.students = final_json.students.replace(/\s/g, '').split(',');
     final_json.questions = [
-        {
-            "type": "generic",
-            "statement": ["QSBjb250aW51YWNpb24gbGEgZGVmaW5pY2lvbiBkZSBsYSBpbnRlZ3JhbCBwb3IgcGFydGVz", "XFtcaW50IHVkdj11di1caW50IHZkdVxd", "QmFzYWRvIGVuIGVzbywgcmVzdWVsdmEgbGFzIHNpZ3VpZW50ZXMgb3BlcmFjaW9uZXM="],
-            "choices": [["SW50ZWdyYWwgZGVmaW5pZGFcXA=="],["XChcaW50IHhjb3MoeClkeFwp="],["XChcaW50IHhjb3MoeClkeFwp="],["XChcaW50IHhjb3MoeClkeFwp="]],
-            "answer": ["XFsgeF5uICsgeV5uID0gel5uIFxd"]
-        },
-        {
-            "type": "math",
-            "statement": ["UmVzdWVsdmEgbGEgZWN1YWNpb24u"],
-            "quantity": 1,
-            "operation": "algebra_eq_int_one_step",
-            "configuration": {
-                "minimum_integer": 0,
-                "maximum_integer": 10
-            }
-        },
-        {
-            "type": "math",
-            "statement": ["UmVzdWVsdmEgbGEgZWN1YWNpb24u"],
-            "quantity": 5,
-            "operation": "arithmetic_int_add",
-            "configuration": {
-                "minimum_integer": 1,
-                "maximum_integer": 10
-            }
-        },
-        {
-            "type": "math",
-            "statement": ["UmVzdWVsdmEgbGEgZWN1YWNpb24u"],
-            "quantity": 1,
-            "operation": "arithmetic_int_sub",
-            "configuration": {
-                "minimum_integer": 0,
-                "maximum_integer": 10
-            }
-        },
-        {
-            "type": "math",
-            "statement": ["UmVzdWVsdmEgbGEgZWN1YWNpb24u"],
-            "quantity": 10,
-            "operation": "calculus_deriv_power",
-            "configuration": {
-                "minimum_exponent": 1,
-                "maximum_exponent": 6,
-                "minimum_coefficient": -10,
-                "maximum_coefficient": 10
-            }
-        }
+        // Working on this lmao
     ];
             
     final_json.description = utf8_to_b64(final_json.description);
@@ -133,9 +96,6 @@ document.getElementById("json_submit").addEventListener("click", async (e) => {
     } catch(err) {
         window.alert("Algo salio mal...");
     }
-
-
-
 })
 
 const questionArray = document.getElementById("question_array");
@@ -147,13 +107,14 @@ function createStatement(parent, placeholder) {
     parent.appendChild(statement);
 }
 
+function createQuestion(questionTypesJson, mathTypesJson) {
+    const question = document.createElement("div");
+    const questionNumber = document.getElementById("question_array").childElementCount + 1;
+    question.textContent = "Pregunta " + questionNumber;
 
+    question.appendChild(document.createElement("br"))
 
-document.getElementById("add_question").addEventListener("click", async (e) => {
-    e.preventDefault();
-    const newQuestion = document.createElement("div");
     const category = document.createElement("select");
-    const defaultJSON = await getDefaultJson();
     const defaultOption = document.createElement("option");
 
     defaultOption.textContent = "Elija una categoría";
@@ -161,43 +122,49 @@ document.getElementById("add_question").addEventListener("click", async (e) => {
     defaultOption.selected = true;
     category.appendChild(defaultOption);
 
-    defaultJSON.forEach(element => {
+    questionTypesJson.forEach(element => {
         const option = document.createElement("option");
         option.value = element.method;
         option.textContent = element.label;
         category.appendChild(option);
     });
 
-    category.addEventListener("change", async (e) => {
+    const firstContainer = document.createElement("div");
+    
+
+    category.addEventListener("change", (e) => {
         const option = e.target.value;
-        const children = newQuestion.children;
 
-        console.log(children);
+        firstContainer.innerHTML = '';
 
-        for (let i = 0; i < children.length; i++) {
-            const child = await children[i];
-            if (child.nodeName.toLowerCase() == "input"){
-                newQuestion.removeChild(child);
-            }
-        }
-        
         switch (option){
             case "generic":
-                createStatement(newQuestion, "Enunciado");
-                createStatement(newQuestion, "Elecciones");
-                createStatement(newQuestion, "Respuesta");
+                createStatement(firstContainer, "Enunciado");
+                createStatement(firstContainer, "Elecciones");
+                createStatement(firstContainer, "Respuesta");
                 break;
             case "math":
+                mathQuestion(firstContainer, mathTypesJson);
                 break;
             default:
                 break;
         }
-
     })
 
-    newQuestion.appendChild(category);
-    questionArray.appendChild(newQuestion);
+    question.appendChild(category);
+    question.appendChild(firstContainer);
 
+    return question
+}
+
+document.getElementById("add_question").addEventListener("click", async (e) => {
+    e.preventDefault();
+
+    const questionTypesJson = await getQuestionTypes();
+    const mathTypesJson = await getMathTypes();
+
+    const question = createQuestion(questionTypesJson, mathTypesJson);
+    questionArray.appendChild(question);
 })
 document.getElementById("del_question").addEventListener("click", (e) => {
     e.preventDefault();
@@ -208,3 +175,98 @@ document.getElementById("del_question").addEventListener("click", (e) => {
     }
     questionArray.removeChild(questionArray.lastChild);
 })
+
+function mathQuestion(firstContainer, mathTypesJson) {
+    const category = document.createElement("select");
+    const defaultOption = document.createElement("option");
+
+    defaultOption.textContent = "Elija una categoría";
+    defaultOption.disabled = true;
+    defaultOption.selected = true;
+    category.appendChild(defaultOption);
+
+    mathTypesJson.forEach((element, index) => {
+        const option = document.createElement("option");
+        option.value = index;
+        option.textContent = element.label;
+        category.appendChild(option);
+    });
+
+    const secondContainer = document.createElement("div")
+
+    category.addEventListener("change", e => {
+        const categoryIndex = e.target.value;
+
+        secondContainer.innerHTML = '';
+
+        const subcategory = document.createElement("select")
+        const defaultOption = document.createElement("option");
+
+        defaultOption.textContent = "Elija una subcategoría";
+        defaultOption.disabled = true;
+        defaultOption.selected = true;
+        subcategory.appendChild(defaultOption)
+
+        const subcategories = mathTypesJson[categoryIndex].subcategories;
+        subcategories.forEach((element, index) => {
+            const option = document.createElement("option");
+            option.value = index;
+            option.textContent = element.label;
+            subcategory.appendChild(option);
+        })
+
+        const thirdContainer = document.createElement("div");
+
+        subcategory.addEventListener("change", e => {
+            const subcategoryIndex = e.target.value;
+
+            thirdContainer.innerHTML = '';
+
+            const operation = document.createElement("select");
+            const defaultOption = document.createElement("option");
+
+            defaultOption.textContent = "Elija una operación";
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            operation.appendChild(defaultOption)
+
+            const operations = subcategories[subcategoryIndex].operations;
+
+            operations.forEach((element, index) => {
+                const option = document.createElement("option");
+                option.value = index;
+                option.textContent = element.label;
+                operation.appendChild(option);
+            })
+
+            const fourthContainer = document.createElement("div");
+
+            operation.addEventListener("change", e => {
+                const operationIndex = e.target.value;
+
+                fourthContainer.innerHTML = '';
+
+                const configuration = operations[operationIndex].configuration;
+                const keys = Object.keys(configuration)
+                for (let key of keys) {
+                    const label = document.createElement("label");
+                    label.textContent = key;
+                    fourthContainer.appendChild(label);
+                    createStatement(fourthContainer, configuration[key]);
+                    fourthContainer.appendChild(document.createElement("br"));
+                }
+            })
+
+            thirdContainer.appendChild(operation);
+            thirdContainer.appendChild(fourthContainer);
+        });
+
+
+        secondContainer.appendChild(subcategory);
+        secondContainer.appendChild(thirdContainer);
+    });
+
+    firstContainer.appendChild(category);
+    firstContainer.appendChild(secondContainer)
+
+}
