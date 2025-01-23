@@ -71,16 +71,14 @@ document.getElementById("json_submit").addEventListener("click", async (e) => {
     final_json.question_keyword = document.getElementById("json_question_keyword").value || document.getElementById("json_question_keyword").placeholder;
     final_json.students = document.getElementById("json_students").value || document.getElementById("json_students").placeholder;
     final_json.students = final_json.students.replace(/\s/g, '').split(',');
-    final_json.questions = [
-        // Working on this lmao
-    ];
+    final_json.questions = getQuestions();
             
     final_json.description = utf8_to_b64(final_json.description);
+    
     final_json = JSON.stringify(final_json);
 
     try {
         const zipBlob = await sendJsonAndGetZip(final_json);
-        console.log(zipBlob);
         const downloadBtn = document.createElement("button");
         downloadBtn.textContent = "Descargar";
         downloadBtn.id = "downloadBtn";
@@ -100,11 +98,103 @@ document.getElementById("json_submit").addEventListener("click", async (e) => {
 
 const questionArray = document.getElementById("question_array");
 
+function getQuestions() {
+    let questions = [];
+
+    for (const child of questionArray.childNodes) {
+
+        if (child.nodeName.toLowerCase() != "div") {
+            continue;
+        }
+        
+        const selectElement = child.querySelector('select');
+        const questionType = selectElement.value
+
+        switch (questionType) {
+            case "generic":
+                {
+                const firstContainer = child.querySelector('div');
+                const statement = firstContainer.querySelector('input[placeholder="Enunciado"]').value
+                const options = firstContainer.querySelector('input[placeholder="Elecciones"]').value
+                const answer = firstContainer.querySelector('input[placeholder="Respuesta"]').value
+
+                if (!(statement && options && answer)) {continue}
+
+                let question = {};
+
+                question.type = "generic";
+                question.statement = [utf8_to_b64(statement)];
+                question.choices = [[utf8_to_b64(options)]];
+                question.answer = [utf8_to_b64(answer)];
+
+                questions.push(question);
+                }
+                break;
+            case "math":
+                {
+                const firstContainer = child.querySelector('div');
+                const statement = firstContainer.querySelector('input[placeholder="Enunciado"]').value
+                const questionQuantity = firstContainer.querySelector('input[placeholder="Cantidad de preguntas"]').value
+
+
+
+                const category = firstContainer.querySelector('select').value;
+
+                if (!(statement && questionQuantity && category)) {continue}
+
+                const secondContainer = firstContainer.querySelector('div');
+                const subcategory = secondContainer.querySelector('select').value;
+
+                if (!subcategory) {continue}
+
+                const thirdContainer = secondContainer.querySelector('div');
+                const operation = thirdContainer.querySelector('select').getAttribute("method");
+                if (!operation) {continue}
+
+                const fourthContainer = thirdContainer.querySelector('div');
+                let configuration = {};
+
+                for (const config of fourthContainer.childNodes) {
+                    const input = config.querySelector('input')
+                    const configName = config.textContent;
+                    const configValue = input.value || input.placeholder;
+
+                    configuration[configName] = Number.parseInt(configValue);
+                }
+
+                let question = {};
+
+                question.type = "math";
+                question.statement = [utf8_to_b64(statement)];
+                question.quantity = Number.parseInt(questionQuantity);
+                question.operation = operation;
+                question.configuration = configuration;
+
+                questions.push(question);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    return questions;
+}
+
 function createStatement(parent, placeholder) {
     const statement = document.createElement("input");
     statement.type = "text";
     statement.placeholder = placeholder;
     parent.appendChild(statement);
+    parent.appendChild(document.createElement("br"));
+}
+
+function createNumericStatement(parent, placeholder) {
+    const statement = document.createElement("input");
+    statement.type = "number";
+    statement.placeholder = placeholder;
+    parent.appendChild(statement);
+    parent.appendChild(document.createElement("br"));
 }
 
 function createQuestion(questionTypesJson, mathTypesJson) {
@@ -144,6 +234,8 @@ function createQuestion(questionTypesJson, mathTypesJson) {
                 createStatement(firstContainer, "Respuesta");
                 break;
             case "math":
+                createStatement(firstContainer, "Enunciado");
+                createNumericStatement(firstContainer, "Cantidad de preguntas");
                 mathQuestion(firstContainer, mathTypesJson);
                 break;
             default:
@@ -236,6 +328,9 @@ function mathQuestion(firstContainer, mathTypesJson) {
                 const option = document.createElement("option");
                 option.value = index;
                 option.textContent = element.label;
+
+                option.setAttribute("method", element.method);
+
                 operation.appendChild(option);
             })
 
@@ -244,6 +339,8 @@ function mathQuestion(firstContainer, mathTypesJson) {
             operation.addEventListener("change", e => {
                 const operationIndex = e.target.value;
 
+                const operationName = e.target.querySelector('option[value="' + operationIndex + '"]').getAttribute("method");
+                operation.setAttribute("method", operationName);
                 fourthContainer.innerHTML = '';
 
                 const configuration = operations[operationIndex].configuration;
@@ -252,8 +349,7 @@ function mathQuestion(firstContainer, mathTypesJson) {
                     const label = document.createElement("label");
                     label.textContent = key;
                     fourthContainer.appendChild(label);
-                    createStatement(fourthContainer, configuration[key]);
-                    fourthContainer.appendChild(document.createElement("br"));
+                    createStatement(label, configuration[key]);
                 }
             })
 
