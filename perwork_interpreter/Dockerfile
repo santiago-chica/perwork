@@ -11,4 +11,4 @@ apt-get install -y --no-install-recommends texlive-latex-recommended texlive-fon
 apt-get install -y --no-install-recommends texlive-latex-extra texlive-fonts-extra texlive-lang-all && \
 rm -rf /var/lib/apt/lists/*
 
-CMD ["python", "./main.py"]
+CMD ["python", "main.py"]
