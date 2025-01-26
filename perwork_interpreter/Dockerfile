@@ -1,10 +1,15 @@
-FROM debian:bookworm-20250113-slim
-LABEL maintainer="cristian@regolo.cc"
+FROM debian:bookworm
+LABEL maintainer="Julian Didier (theredfish)" \
+      description="A docker image based on Debian that provides pdflatex and common packages" \
+      repo="https://github.com/theredfish/docker-pdflatex"
 
-ENV DEBIAN_FRONTEND noninteractive
+# Latex packages
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends texlive-latex-recommended texlive-fonts-recommended && \
+    apt-get install -y --no-install-recommends texlive-latex-extra texlive-fonts-extra texlive-lang-all && \
+    rm -rf /var/lib/apt/lists/*
 
-COPY install.sh /install.sh
-RUN sh /install.sh && rm /install.sh
+WORKDIR /root/shared/folder
 
-VOLUME ["/sources"]
-WORKDIR /sources
+# Default command
+ENTRYPOINT ["pdflatex"]
