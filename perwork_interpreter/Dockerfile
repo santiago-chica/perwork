@@ -42,8 +42,6 @@ RUN    miktexsetup finish \
     && miktex packages update \
     && miktex packages install amsfonts
 
-VOLUME [ "${miktex_home}" ]
-
 WORKDIR ${miktex_work}
 
 USER root
