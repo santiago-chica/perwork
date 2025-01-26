@@ -1,15 +1,25 @@
-FROM debian:bookworm
-LABEL maintainer="Julian Didier (theredfish)" \
-      description="A docker image based on Debian that provides pdflatex and common packages" \
-      repo="https://github.com/theredfish/docker-pdflatex"
+# Usa una imagen base de Python
+FROM python:3.9-slim
 
-# Latex packages
+# Instala TeX Live (pdfLaTeX)
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends texlive-latex-recommended texlive-fonts-recommended && \
-    apt-get install -y --no-install-recommends texlive-latex-extra texlive-fonts-extra texlive-lang-all && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get install -y --no-install-recommends \
+    texlive-latex-base \
+    texlive-latex-extra \
+    texlive-fonts-recommended \
+    texlive-fonts-extra \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /root/shared/folder
+# Copia los archivos de tu aplicación
+COPY . /app
+WORKDIR /app
 
-# Default command
-ENTRYPOINT ["pdflatex"]
+# Instala las dependencias de Python
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Expone el puerto en el que corre Flask
+EXPOSE 5000
+
+# Comando para ejecutar la aplicación
+CMD ["python", "main.py"]
