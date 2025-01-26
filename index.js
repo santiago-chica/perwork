@@ -55,6 +55,10 @@ function utf8_to_b64( str ) {
 
 document.getElementById("json_submit").addEventListener("click", async (e) => {
     e.preventDefault();
+
+    const downloadDiv = document.getElementById("download_div");
+    downloadDiv.innerHTML = '';
+
     let final_json = {};
 
     const dateString = document.getElementById("json_date").value.replace(/-/g, '\/');
@@ -82,9 +86,10 @@ document.getElementById("json_submit").addEventListener("click", async (e) => {
         const downloadBtn = document.createElement("button");
         downloadBtn.textContent = "Descargar";
         downloadBtn.id = "downloadBtn";
-        document.body.appendChild(downloadBtn);
+        downloadDiv.appendChild(downloadBtn);
 
-        downloadBtn.onclick = () => {
+        downloadBtn.onclick = (e) => {
+            e.preventDefault();
             if (zipBlob) {
                 downloadZip(zipBlob, "project.zip");
             } else {
