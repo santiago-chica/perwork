@@ -22,8 +22,8 @@ RUN apt-get update && \
 RUN python3 -m pip install --upgrade pip
 
 # Copia los archivos de tu aplicación
-COPY . /app
-WORKDIR /app
+COPY . /main
+WORKDIR /main
 
 # Instala las dependencias de Python
 RUN pip install --no-cache-dir -r requirements.txt
@@ -32,4 +32,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 5000
 
 # Comando para ejecutar la aplicación Flask
-CMD ["python3", "app.py"]
+CMD ["python3", "main.py"]
