@@ -1,6 +1,5 @@
 async function sendJsonAndGetZip(jsonText) {
     const apiUrl = "https://desirable-courage-production.up.railway.app/api/convert";
-
     const response = await fetch(apiUrl, {
         method: "POST",
         headers: {
