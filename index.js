@@ -173,6 +173,24 @@ function getQuestions() {
                 questions.push(question);
                 }
                 break;
+            case "ai_prompt":
+                {
+                const firstContainer = child.querySelector('div');
+                const prompt = firstContainer.querySelector('input[placeholder="Descripción de la pregunta"]').value
+                const quantity = firstContainer.querySelector('input[placeholder="Cantidad de preguntas"]').value
+                const answerCount = firstContainer.querySelector('input[placeholder="Cantidad de respuestas de opción múltiple"]').value
+
+                if (!(prompt && quantity && answerCount)) {continue}
+
+                let question = {};
+
+                question.type = "ai_prompt";
+                question.prompt = prompt;
+                question.quantity = Number(quantity);
+                question.answer_count = Number(answerCount);
+
+                questions.push(question);
+                }
             default:
                 break;
         }
@@ -237,6 +255,11 @@ function createQuestion(questionTypesJson, mathTypesJson) {
                 createStatement(firstContainer, "Enunciado");
                 createNumericStatement(firstContainer, "Cantidad de preguntas");
                 mathQuestion(firstContainer, mathTypesJson);
+                break;
+            case "ai_prompt":
+                createStatement(firstContainer, "Descripción de la pregunta");
+                createNumericStatement(firstContainer, "Cantidad de preguntas");
+                createNumericStatement(firstContainer, "Cantidad de respuestas de opción múltiple");
                 break;
             default:
                 break;

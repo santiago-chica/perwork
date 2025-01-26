@@ -55,6 +55,12 @@
                 "minimum_coefficient": -10,
                 "maximum_coefficient": 10
             }
+        },
+        {
+            "type": "ai_prompt",
+            "prompt": "Pregunta sobre el imperio romano",
+            "quantity": 2,
+            "answer_count": 4
         }
     ]
 }

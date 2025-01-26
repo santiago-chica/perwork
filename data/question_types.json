@@ -6,5 +6,9 @@
     {
         "label": "Pregunta Matematica",
         "method": "math"
+    },
+    {
+        "label": "Pregunta con IA",
+        "method": "ai_prompt"
     }
 ]
