@@ -4,92 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=100, initial-scale=1.0">
     <title>Document</title>
+    <script src="index.js" defer></script>
 </head>
 <body>
-    <h1>Formulario</h1>
-    <form id="json_form">
+    <h1>Generar</h1>
+    <form id="perwork_json">
+        
         <div>
-            <label for="json-file">Subir archivo en JSON</label>
-            <input type="file" name="json-file" id="json-file">
-            
+            <label for="json_project">Nombre del proyecto</label> <br>
+            <input type="text" name="json_project" id="json_project" placeholder="Tarea">
+            <br>
+            <label for="json_project">Título</label> <br>
+            <input type="text" name="json_title" id="json_title" placeholder="Trabajo">
+            <br>
+            <label for="json_double_column">Dos columnas</label> <br>
+            <input type="checkbox" name="json_double_column" id="json_double_column">
+            <br>
+            <label for="json_date">Fecha</label> <br>
+            <input type="date" name="json_date" id="json_date">
+            <br>
+            <label for="json_author">Autor</label> <br>
+            <input type="text" name="json_author" id="json_author" placeholder="Autor">
+            <br>
+            <label for="json_description">Enunciado</label> <br>
+            <input type="text" name="json_description" id="json_description" placeholder="Descripción...">
+            <br>
+            <label for="json_question_keyword">Palabra de pregunta</label> <br>
+            <input type="text" name="json_question_keyword" id="json_question_keyword" placeholder="Pregunta">
+            <br>
+            <label for="json_students">Estudiantes</label> <br>
+            <input type="text" name="json_students" id="json_students" placeholder="Santiago, Juan, Diego">
+        </div>
+        <h2>Preguntas</h2>
+        <div>
+            <div id="question_array">
+                <!-- All JS questions -->
+            </div>
+            <div>
+                <button type="button" id="add_question">+</button>
+                <button type="button" id="del_question">-</button>
+            </div>
         </div>
         <div>
-            <button type="button" id="send-button">Enviar</button>
+            <button type="submit" id="json_submit">Enviar</button>
         </div>
     </form>
-
-    <script>
-
-        function readFileAsText(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.readAsText(file);
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = () => reject(reader.error);
-            });
-        }
-        
-        async function sendJsonAndGetZip(jsonText) {
-            const apiUrl = "http://127.0.0.1:5000/api/convert"; // Replace with your API endpoint
-
-            const response = await fetch(apiUrl, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: jsonText
-            });
-
-            if (!response.ok) {
-                throw new Error(`Error: ${response.statusText}`);
-            }
-
-            return await response.blob();
-        }
-
-        function downloadZip(blob, filename) {
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
-
-        document.getElementById('send-button').addEventListener('click', async () => {
-
-            const fileInput = document.getElementById('json-file');
-
-            if (!fileInput.files.length) {
-                alert('Elija un archivo en JSON.');
-                return;
-            }
-
-            const file = fileInput.files[0];
-            const jsonText = await readFileAsText(file)
-
-            try {
-                const zipBlob = await sendJsonAndGetZip(jsonText);
-
-                const downloadBtn = document.createElement("button");
-                downloadBtn.textContent = "Descargar";
-                downloadBtn.id = "downloadBtn";
-                document.body.appendChild(downloadBtn)
-
-                downloadBtn.onclick = () => {
-                    if (zipBlob) {
-                        downloadZip(zipBlob, "result.zip");
-                    } else {
-                        console.log("Error...");
-                    }
-                }                
-            } catch (err) {
-                console.log('Nope');
-            }
-        });
-    </script>
-
 </body>
 </html>

@@ -1,21 +1,9 @@
-from sympy import (symbols,
-                   Add,
-                   latex,
-                   solve,
-                   Symbol,
-                   StrPrinter,
-                   diff)
-from sympy.abc import x
-from numpy.random import choice
-
+from question_parser import ai_prompt
+from interpreter import export_assignment
+from json import load
 
 if __name__ == '__main__':
 
-
-
-    f = 3 * x ** 4
-    dev = diff(f, x)
-
-    statement = latex(dev, mode='equation*', order='none')
-
-    print(statement)
+    with open('./proyectos/example.json') as table_data:
+        table_data = load(table_data)
+        export_assignment(table_data)

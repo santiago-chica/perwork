@@ -1,0 +1,66 @@
+[
+    {
+        "label": "Aritmetica",
+        "subcategories": [
+            {
+                "label": "Enteros",
+                "operations": [
+                    {
+                        "label": "Suma",
+                        "method": "arithmetic_int_add",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "Resta",
+                        "method": "arithmetic_int_sub",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "label": "Algebra",
+        "subcategories": [
+            {
+                "label": "Resolucion de ecuaciones",
+                "operations": [
+                    {
+                        "label": "Ecuaciones de un solo paso",
+                        "method": "algebra_eq_int_one_step",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "label": "Calculo",
+        "subcategories": [
+            {
+                "label": "Derivadas",
+                "operations": [
+                    {
+                        "label": "Regla de la potencia",
+                        "method": "calculus_deriv_power",
+                        "configuration": {
+                            "minimum_exponent": 1,
+                            "maximum_exponent": 6,
+                            "minimum_coefficient": -10,
+                            "maximum_coefficient": 10
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+]

@@ -3,7 +3,7 @@ from flask import Flask, request, send_file
 from flask_cors import CORS
 from numpy.random import randint
 from pathlib import Path
-
+from json import load
 app = Flask(__name__)
 CORS(app)
 
