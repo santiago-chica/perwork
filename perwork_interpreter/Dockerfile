@@ -1,43 +1,22 @@
-FROM ubuntu:bionic
+FROM python:3.12
+WORKDIR /usr/local/app
 
-LABEL Description="Dockerized MiKTeX, Ubuntu 18.04" Vendor="LI Zhennan"
+# Install the application dependencies
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
 
-RUN    apt-get update \
-    && apt-get install -y --no-install-recommends \
-           apt-transport-https \
-           ca-certificates \
-           dirmngr \
-           ghostscript \
-           gnupg \
-           gosu \
-           make \
-           perl \
-           build-essential
+# Copy in the source code
+COPY src ./src
+EXPOSE 5000
 
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys D6BC243565B2087BC3F897C9277A7293F59E4889
-RUN echo "deb http://miktex.org/download/ubuntu bionic universe" | tee /etc/apt/sources.list.d/miktex.list
+# Latex packages
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends texlive-latex-recommended texlive-fonts-recommended && \
+    apt-get install -y --no-install-recommends texlive-latex-extra texlive-fonts-extra texlive-lang-all && \
+    rm -rf /var/lib/apt/lists/*
 
-RUN    apt-get update \
-    && apt-get install -y --no-install-recommends \
-           miktex
+# Setup an app user so the container doesn't run as the root user
+RUN useradd app
+USER app
 
-RUN    miktexsetup finish \
-    && initexmf --admin --set-config-value=[MPM]AutoInstall=1 \
-    && mpm --admin --update-db \
-    && mpm --admin \
-           --install amsfonts \
-           --install biber-linux-x86_64 \
-           --install fandol \
-           --install latexmk \
-    && initexmf --admin --update-fndb
-
-COPY entrypoint.sh /
-ENTRYPOINT ["/entrypoint.sh"]
-
-ENV MIKTEX_USERCONFIG=/miktex/.miktex/texmfs/config
-ENV MIKTEX_USERDATA=/miktex/.miktex/texmfs/data
-ENV MIKTEX_USERINSTALL=/miktex/.miktex/texmfs/install
-
-WORKDIR /miktex/work
-
-CMD ["bash"]
+CMD ["uvicorn", "main.py"]
