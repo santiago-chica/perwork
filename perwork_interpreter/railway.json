@@ -1,8 +1,0 @@
-{
-    "build": {
-      "use": "@railway/static"
-    },
-    "deploy": {
-      "dockerfile": "Dockerfile"
-    }
-}
