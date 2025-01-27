@@ -8,6 +8,7 @@ def parse_math(question:dict):
         'arithmetic_int_add': arithmetic.int_add, # Arithmetic
         'arithmetic_int_sub': arithmetic.int_sub,
         'arithmetic_int_mul': arithmetic.int_mul,
+        'arithmetic_int_div': arithmetic.int_div,
         'calculus_deriv_power': calculus.deriv_power,
         'algebra_eq_int_one_step': algebra.eq_int_one_step
     }.get(question['operation'])(question)

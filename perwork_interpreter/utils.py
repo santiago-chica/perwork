@@ -7,8 +7,13 @@ def base_64_encode(txt:str):
 
 # Math solver
 
-def get_numbers_in_range(minimum, maximum, excluded, quantity, can_repeat=True):
+def get_numbers_in_range(minimum, maximum, excluded, quantity=1, can_repeat=True):
     
     domain = [i for i in range(minimum, maximum + 1) if i not in excluded]
     
-    return choice(domain, size=quantity, replace=can_repeat)
+    picked = choice(domain, size=quantity, replace=can_repeat)
+
+    if quantity == 1:
+        return picked[0]
+
+    return picked

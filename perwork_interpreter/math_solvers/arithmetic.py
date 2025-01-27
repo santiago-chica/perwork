@@ -5,7 +5,9 @@ from sympy import (
     Eq,
     Add,
     Mul,
-    Expr
+    Expr,
+    fraction,
+    Rational
 )
 from numpy.random import randint, choice
 from sympy.abc import x, y
@@ -68,16 +70,23 @@ def int_mul(question:dict):
 # Divide
 def int_div(question:dict):
     config_table = question['configuration']
-    l, r = get_numbers_in_range(
-        config_table['minimum_integer'],
-        config_table['maximum_integer'],
-        [],
-        2
+
+    divisor = get_numbers_in_range(
+        config_table['minimum_factor'],
+        config_table['maximum_factor'],
+        [0, 1],
     )
 
-    statement = Expr(l / r, evaluate=False)
+    answer = get_numbers_in_range(
+        config_table['minimum_factor'],
+        config_table['maximum_factor'],
+        [1],
+    )
+
+    dividend = divisor * answer
+
+    statement = Rational(dividend, divisor, gcd=1)
     choices = []
-    answer = statement.simplify()
 
     return (statement, choices, answer)
 # Add and substract

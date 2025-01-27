@@ -28,6 +28,14 @@
                             "minimum_integer": 0,
                             "maximum_integer": 10
                         }
+                    },
+                    {
+                        "label": "División",
+                        "method": "arithmetic_int_div",
+                        "configuration": {
+                            "minimum_factor": 0,
+                            "maximum_factor": 10
+                        }
                     }
                 ]
             }

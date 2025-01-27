@@ -1,7 +1,12 @@
-from question_parser import ai_prompt
-from interpreter import export_assignment
-from json import load
-import os
+import math_solvers.arithmetic as solver
+import sympy.printing.latex as latex
 if __name__ == '__main__':
+    question = {
+        "configuration": {
+            "minimum_factor": 0,
+            "maximum_factor": 10
+        }
+    }
 
-    print(os.environ["gemini_api"])
+    answer = solver.int_div(question)
+    print(answer)
