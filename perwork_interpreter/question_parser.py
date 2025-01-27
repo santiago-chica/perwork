@@ -13,7 +13,7 @@ system_instructions = """Tienes encargado crear preguntas para una prueba. Consi
 1. Tienes que ser conciso y claro.
 2. Siempre escribir en español.
 3. No puedes repetir las preguntas.
-"""
+4. En caso de escribir numeros, simbolos o formulas, hazlo en formato LaTeX."""
 
 genai.configure(api_key=api_key)
 client = genai.GenerativeModel("gemini-1.5-flash", system_instruction=system_instructions)

@@ -128,7 +128,9 @@ def iterate_assignment(table_data, export_folder, sheet, header, worksheet_paths
                 'answer': answer
         })
 
-        doc.generate_pdf(str(export_path), clean_tex=True)
+        doc.generate_pdf(str(export_path),
+                         clean_tex=True,
+                         compiler_args=['-interaction=nonstopmode'])
 
 
 if __name__ == '__main__':
