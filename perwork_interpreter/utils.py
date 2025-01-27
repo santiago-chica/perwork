@@ -1,5 +1,6 @@
 from base64 import b64encode
 from numpy.random import choice
+from sympy import latex
 # Encoding
 
 def base_64_encode(txt:str):
@@ -17,3 +18,11 @@ def get_numbers_in_range(minimum, maximum, excluded, quantity=1, can_repeat=True
         return picked[0]
 
     return picked
+
+def latexify(question_tuple:tuple):
+    statement, choices, answer = question_tuple
+
+    statement = latex(statement, mode='equation*', order='none')
+    answer = latex(answer, mode='equation*', order='none')
+
+    return (statement, choices, answer)

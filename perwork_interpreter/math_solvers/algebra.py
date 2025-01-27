@@ -8,7 +8,8 @@ from sympy import (
 from numpy.random import randint, choice
 from sympy.abc import x, y
 from utils import (
-    get_numbers_in_range
+    get_numbers_in_range,
+    latexify
 )
 
 # -- Algebra --
@@ -61,8 +62,7 @@ from utils import (
 # - Integers -
 
 # One step equations
-def eq_int_one_step(question:dict):
-    config_table = question['configuration']
+def eq_int_one_step(config_table:dict):
     l, r = get_numbers_in_range(
         config_table['minimum_integer'],
         config_table['maximum_integer'],
@@ -73,7 +73,7 @@ def eq_int_one_step(question:dict):
     statement = Eq(l * x, r)
     choices = []
     answer = solve(statement, x)[0]
-    return (statement, choices, answer)
+    return latexify((statement, choices, answer))
 # Two step equations
 # Multi-step equations
 # Summary

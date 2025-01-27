@@ -4,6 +4,7 @@ import math_solvers.algebra as algebra
 import math_solvers.calculus as calculus
 
 def parse_math(question:dict):
+    config_table = question['configuration']
     return {
         'arithmetic_int_add': arithmetic.int_add, # Arithmetic
         'arithmetic_int_sub': arithmetic.int_sub,
@@ -14,4 +15,4 @@ def parse_math(question:dict):
         'arithmetic_int_summary': arithmetic.int_summary,
         'calculus_deriv_power': calculus.deriv_power,
         'algebra_eq_int_one_step': algebra.eq_int_one_step
-    }.get(question['operation'])(question)
+    }.get(question['operation'])(config_table)

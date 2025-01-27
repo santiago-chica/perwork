@@ -8,7 +8,8 @@ from sympy import (
 from numpy.random import randint, choice
 from sympy.abc import x, y
 from utils import (
-    get_numbers_in_range
+    get_numbers_in_range,
+    latexify
 )
 
 # - Integrals -
@@ -29,28 +30,24 @@ from utils import (
 
 # TODO
 # Power rule
-def deriv_power(question:dict):
-
-    config_table = question['configuration']
+def deriv_power(config_table:dict):
     exponent = get_numbers_in_range(
         config_table['minimum_exponent'],
         config_table['maximum_exponent'],
-        [0],
-        1
-    )[0]
+        [0]
+    )
 
     coefficient = get_numbers_in_range(
         config_table['minimum_coefficient'],
         config_table['maximum_coefficient'],
-        [0],
-        1
-    )[0]
+        [0]
+    )
 
     statement = coefficient * x ** exponent
     choices = []
     answer = diff(statement, x)
 
-    return (statement, choices, answer)
+    return latexify((statement, choices, answer))
 # Product rule
 # Quotient rule
 # Chain rule

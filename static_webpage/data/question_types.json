@@ -1,10 +1,10 @@
 [
     {
-        "label": "Pregunta Generica",
+        "label": "Pregunta Genérica",
         "method": "generic"
     },
     {
-        "label": "Pregunta Matematica",
+        "label": "Pregunta Matemática",
         "method": "math"
     },
     {

@@ -7,14 +7,16 @@ from sympy import (
     Mul,
     Expr,
     fraction,
-    Rational
+    Rational,
+    latex
 )
 from numpy.random import randint, choice
 from sympy.abc import x, y
 from json import load as json_load
 from random import choice
 from utils import (
-    get_numbers_in_range
+    get_numbers_in_range,
+    latexify
 )
 
 # -- Arithmetic --
@@ -24,8 +26,7 @@ from utils import (
 # TODO
 
 # Add
-def int_add(question:dict):
-    config_table = question['configuration']
+def int_add(config_table:dict):
     l, r = get_numbers_in_range(
         config_table['minimum_integer'],
         config_table['maximum_integer'],
@@ -37,10 +38,9 @@ def int_add(question:dict):
     choices = []
     answer = statement.simplify()
 
-    return (statement, choices, answer)
+    return latexify((statement, choices, answer))
 # Substract
-def int_sub(question:dict):
-    config_table = question['configuration']
+def int_sub(config_table:dict):
     l, r = get_numbers_in_range(
         config_table['minimum_integer'],
         config_table['maximum_integer'],
@@ -52,10 +52,9 @@ def int_sub(question:dict):
     choices = []
     answer = statement.simplify()
 
-    return (statement, choices, answer)
+    return latexify((statement, choices, answer))
 # Multiply
-def int_mul(question:dict):
-    config_table = question['configuration']
+def int_mul(config_table:dict):
     l, r = get_numbers_in_range(
         config_table['minimum_factor'],
         config_table['maximum_factor'],
@@ -67,17 +66,14 @@ def int_mul(question:dict):
     choices = []
     answer = statement.simplify()
 
-    return (statement, choices, answer)
+    return latexify((statement, choices, answer))
 # Divide
-def int_div(question:dict):
-    config_table = question['configuration']
-
+def int_div(config_table:dict):
     divisor = get_numbers_in_range(
         config_table['minimum_factor'],
         config_table['maximum_factor'],
         [0, 1],
     )
-
     answer = get_numbers_in_range(
         config_table['minimum_factor'],
         config_table['maximum_factor'],
@@ -89,31 +85,31 @@ def int_div(question:dict):
     statement = Rational(dividend, divisor, gcd=1)
     choices = []
 
-    return (statement, choices, answer)
+    return latexify((statement, choices, answer))
 # Add and substract
-def int_add_sub(question:dict):
+def int_add_sub(config_table:dict):
     operator_array = [
         int_add,
         int_sub
     ]
     operation = choice(operator_array)
-    return operation(question)
+    return operation(config_table)
 # Multiply and divide
-def int_mul_div(question:dict):
+def int_mul_div(config_table:dict):
     operator_array = [
         int_mul,
         int_div
     ]
     operation = choice(operator_array)
-    return operation(question)
+    return operation(config_table)
 # Summary
-def int_summary(question:dict):
+def int_summary(config_table:dict):
     on_add_sub = choice([True, False])
 
     if on_add_sub:
-        return int_add_sub(question)
+        return int_add_sub(config_table)
     
-    return int_mul_div(question)
+    return int_mul_div(config_table)
 
 # - Order of operations -
 

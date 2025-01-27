@@ -21,7 +21,7 @@ async function sendJsonAndGetZip(jsonText) {
 }
 
 async function getQuestionTypes() {
-    return await fetch('./data/question_types.json')
+    return await fetch('./data/question_types.json', {cache: "no-store"})
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Couldn't find JSON file.");
@@ -31,7 +31,7 @@ async function getQuestionTypes() {
 }
 
 async function getMathTypes() {
-    return await fetch('./data/math_types.json')
+    return await fetch('./data/math_types.json', {cache: "no-store"})
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Couldn't find JSON file.");

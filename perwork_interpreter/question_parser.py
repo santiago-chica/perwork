@@ -36,9 +36,6 @@ def math(question:dict):
 
         statement, choices, answer = parse_math(question)
 
-        statement = latex(statement, mode='equation*', order='none')
-        answer = latex(answer, mode='equation*', order='none')
-
         parsed_questions.append(
             {
                 'statement': base_64_encode(statement),
