@@ -1,29 +1,14 @@
-from sympy import (
-    latex,
-    solve,
-    diff,
-    Eq,
-    Add,
-    Mul,
-    Expr,
-    fraction,
-    Rational,
-    latex
-)
 from numpy.random import randint, choice
 from sympy.abc import x, y
 from json import load as json_load
 from random import choice
 from utils import (
     get_numbers_in_range,
-    latexify
+    latexify,
+    string_to_tex
 )
 
-# -- Arithmetic --
-
 # - Integers -
-
-# TODO
 
 # Add
 def int_add(config_table:dict):
@@ -34,11 +19,11 @@ def int_add(config_table:dict):
         2
     )
 
-    statement = Add(l, r, evaluate=False)
+    statement = string_to_tex(f'{l} + {r}')
     choices = []
-    answer = statement.simplify()
+    answer = string_to_tex(str(l + r))
 
-    return latexify((statement, choices, answer))
+    return (statement, choices, answer)
 # Substract
 def int_sub(config_table:dict):
     l, r = get_numbers_in_range(
@@ -48,11 +33,11 @@ def int_sub(config_table:dict):
         2
     )
 
-    statement = Add(l, -r, evaluate=False)
+    statement = string_to_tex(f'{l} - {r}')
     choices = []
-    answer = statement.simplify()
+    answer = string_to_tex(str(l - r))
 
-    return latexify((statement, choices, answer))
+    return (statement, choices, answer)
 # Multiply
 def int_mul(config_table:dict):
     l, r = get_numbers_in_range(
@@ -62,11 +47,11 @@ def int_mul(config_table:dict):
         2
     )
 
-    statement = Mul(l, r, evaluate=False)
+    statement = string_to_tex(f'{l} \\times {r}')
     choices = []
-    answer = statement.simplify()
+    answer = string_to_tex(str(l * r))
 
-    return latexify((statement, choices, answer))
+    return (statement, choices, answer)
 # Divide
 def int_div(config_table:dict):
     divisor = get_numbers_in_range(
@@ -82,10 +67,11 @@ def int_div(config_table:dict):
 
     dividend = divisor * answer
 
-    statement = Rational(dividend, divisor, gcd=1)
+    statement = string_to_tex(f'{dividend} \\div {divisor}')
+    answer = string_to_tex(str(answer))
     choices = []
 
-    return latexify((statement, choices, answer))
+    return (statement, choices, answer)
 # Add and substract
 def int_add_sub(config_table:dict):
     operator_array = [
@@ -113,8 +99,19 @@ def int_summary(config_table:dict):
 
 # - Order of operations -
 
-# TODO
 # Basic operations
+def order_basic(config_table:dict):
+    n1, n2, n3, n4 = get_numbers_in_range(
+        config_table['minimum_integer'],
+        config_table['maximum_integer'],
+        [0],
+        4
+    )
+    statement = 2
+    choices = []
+    answer = statement.simplify()
+
+    return latexify((statement, choices, answer))
 # Include exponents
 # Include parentheses
 # Include exponents and parentheses

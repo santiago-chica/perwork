@@ -26,3 +26,8 @@ def latexify(question_tuple:tuple):
     answer = latex(answer, mode='equation*', order='none')
 
     return (statement, choices, answer)
+
+latex_prefix = '\\begin{equation*}'
+latex_sufix = '\\end{equation*}'
+def string_to_tex(string:str):
+    return latex_prefix + string + latex_sufix
