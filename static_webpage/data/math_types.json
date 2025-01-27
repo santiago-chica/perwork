@@ -25,14 +25,40 @@
                         "label": "Multiplicación",
                         "method": "arithmetic_int_mul",
                         "configuration": {
-                            "minimum_integer": 0,
-                            "maximum_integer": 10
+                            "minimum_factor": 0,
+                            "maximum_factor": 10
                         }
                     },
                     {
                         "label": "División",
                         "method": "arithmetic_int_div",
                         "configuration": {
+                            "minimum_factor": 0,
+                            "maximum_factor": 10
+                        }
+                    },
+                    {
+                        "label": "Suma y resta",
+                        "method": "arithmetic_int_add_sub",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "División y multiplicación",
+                        "method": "arithmetic_int_mul_div",
+                        "configuration": {
+                            "minimum_factor": 0,
+                            "maximum_factor": 10
+                        }
+                    },
+                    {
+                        "label": "Resumen",
+                        "method": "arithmetic_int_summary",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10,
                             "minimum_factor": 0,
                             "maximum_factor": 10
                         }

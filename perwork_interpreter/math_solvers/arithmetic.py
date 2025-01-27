@@ -12,6 +12,7 @@ from sympy import (
 from numpy.random import randint, choice
 from sympy.abc import x, y
 from json import load as json_load
+from random import choice
 from utils import (
     get_numbers_in_range
 )
@@ -56,9 +57,9 @@ def int_sub(question:dict):
 def int_mul(question:dict):
     config_table = question['configuration']
     l, r = get_numbers_in_range(
-        config_table['minimum_integer'],
-        config_table['maximum_integer'],
-        [],
+        config_table['minimum_factor'],
+        config_table['maximum_factor'],
+        [0, 1],
         2
     )
 
@@ -90,8 +91,29 @@ def int_div(question:dict):
 
     return (statement, choices, answer)
 # Add and substract
+def int_add_sub(question:dict):
+    operator_array = [
+        int_add,
+        int_sub
+    ]
+    operation = choice(operator_array)
+    return operation(question)
 # Multiply and divide
+def int_mul_div(question:dict):
+    operator_array = [
+        int_mul,
+        int_div
+    ]
+    operation = choice(operator_array)
+    return operation(question)
 # Summary
+def int_summary(question:dict):
+    on_add_sub = choice([True, False])
+
+    if on_add_sub:
+        return int_add_sub(question)
+    
+    return int_mul_div(question)
 
 # - Order of operations -
 
