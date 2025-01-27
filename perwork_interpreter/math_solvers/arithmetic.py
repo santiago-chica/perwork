@@ -4,6 +4,7 @@ from sympy import (
     diff,
     Eq,
     Add,
+    Mul
 )
 from numpy.random import randint, choice
 from sympy.abc import x, y
@@ -19,8 +20,7 @@ from utils import (
 # TODO
 
 # Add
-def arithmetic_int_add(question:dict):
-    
+def int_add(question:dict):
     config_table = question['configuration']
     l, r = get_numbers_in_range(
         config_table['minimum_integer'],
@@ -35,8 +35,7 @@ def arithmetic_int_add(question:dict):
 
     return (statement, choices, answer)
 # Substract
-def arithmetic_int_sub(question:dict):
-
+def int_sub(question:dict):
     config_table = question['configuration']
     l, r = get_numbers_in_range(
         config_table['minimum_integer'],
@@ -51,6 +50,20 @@ def arithmetic_int_sub(question:dict):
 
     return (statement, choices, answer)
 # Multiply
+def int_mul(question:dict):
+    config_table = question['configuration']
+    l, r = get_numbers_in_range(
+        config_table['minimum_integer'],
+        config_table['maximum_integer'],
+        [],
+        2
+    )
+
+    statement = Mul(l, r, evaluate=False)
+    choices = [[]]
+    answer = statement.simplify()
+
+    return (statement, choices, answer)
 # Divide
 # Add and substract
 # Multiply and divide

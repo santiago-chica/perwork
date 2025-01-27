@@ -1,6 +1,6 @@
 [
     {
-        "label": "Aritmetica",
+        "label": "Aritmética",
         "subcategories": [
             {
                 "label": "Enteros",
@@ -20,13 +20,21 @@
                             "minimum_integer": 0,
                             "maximum_integer": 10
                         }
+                    },
+                    {
+                        "label": "Multiplicación",
+                        "method": "arithmetic_int_mul",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10
+                        }
                     }
                 ]
             }
         ]
     },
     {
-        "label": "Algebra",
+        "label": "Algebraaaa",
         "subcategories": [
             {
                 "label": "Resolucion de ecuaciones",

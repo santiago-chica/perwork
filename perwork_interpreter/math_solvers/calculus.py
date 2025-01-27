@@ -11,8 +11,25 @@ from utils import (
     get_numbers_in_range
 )
 
+# - Integrals -
+
+# TODO
+# Basic integrals
+# Integration by parts
+# U-substitution
+# Trigonometric substitution
+# Summary
+
+# - Discontinuities -
+
+# TODO
+# Rational functions
+
 # - Derivatives -
-def calculus_deriv_power(question:dict):
+
+# TODO
+# Power rule
+def deriv_power(question:dict):
 
     config_table = question['configuration']
     exponent = get_numbers_in_range(
@@ -34,3 +51,10 @@ def calculus_deriv_power(question:dict):
     answer = diff(statement, x)
 
     return (statement, choices, answer)
+# Product rule
+# Quotient rule
+# Chain rule
+# Summary
+
+# - Summary -
+# Calculus summary

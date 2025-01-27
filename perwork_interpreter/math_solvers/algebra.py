@@ -1,26 +1,81 @@
+from sympy import (
+    latex,
+    solve,
+    diff,
+    Eq,
+    Add,
+)
+from numpy.random import randint, choice
+from sympy.abc import x, y
+from utils import (
+    get_numbers_in_range
+)
+
 # -- Algebra --
 
 # - Radicals -
 
 # TODO
+# Add
+# Substract
+# Multiply
+# Distribute
 # Rationalize
 # Simplify
-
-# - Equation Solving -
-
-# TODO
-# One step equations
-# Two step equations
-# Multi-step equations
 # Summary
 
-# - Integers -
+# - Complex Numbers -
 
 # TODO
 # Add
 # Subtract
 # Multiply
 # Divide
+# Find the norm
+# Summary
+
+# - Polynomials -
+
+# TODO
+# Evaluate at a point
+# Add
+# Subtract
+# Expand
+# Factor
+# Multiply monomial and polynomial
+# Multiply two polynomials
+# Binomial expansion
+# Horizontal axis intercepts
+# Summary
+
+# - Quadratic polynomials -
+
+# TODO
+# Expand
+# Factor
+# Complete the square
+# Summary
+
+# - Equation Solving -
+
+# - Integers -
+
+# One step equations
+def eq_int_one_step(question:dict):
+    config_table = question['configuration']
+    l, r = get_numbers_in_range(
+        config_table['minimum_integer'],
+        config_table['maximum_integer'],
+        [0, 1],
+        2,
+        can_repeat=False
+    )
+    statement = Eq(l * x, r)
+    choices = [[]]
+    answer = solve(statement, x)[0]
+    return (statement, choices, answer)
+# Two step equations
+# Multi-step equations
 # Summary
 
 # - Rationals -
@@ -39,23 +94,12 @@
 # Multi-step equations
 # Summary
 
-# - Complex Numbers -
-
-# TODO
-# Add
-# Subtract
-# Multiply
-# Divide
-# Find the norm
-# Summary
-
 # - Absolute Values -
 
 # TODO
 # Integer equations
 # Rational equations
 # Radical equations
-# Summary
 
 # - Quadratic Equations -
 
@@ -67,26 +111,20 @@
 # Radical solutions
 # Summary
 
-# - Polynomials -
+# - General -
 
 # TODO
-# Evaluate at a point
-# Add
-# Subtract
-# Expand
-# Factor
-# Multiply monomial and polynomial
-# Multiply two polynomials
-# Binomial expansion
-# Horizontal axis intercepts
+# Completed squares
+# Integer solutions
+# Difference of squares
+# Complex number solutions
+# Radical solutions
 # Summary
 
-# - Exponents and Logarithms -
+# - Exponents and logarithms -
 
-# TODO
 # Exponential equations
 # Logarithmic equations
-# Summary
 
 # - Systems of Equations -
 
@@ -94,15 +132,6 @@
 # Systems of two equations
 # Systems of three equations
 # Systems of four equations
-# Summary
-
-# - Quadratic Polynomials -
-
-# TODO
-# Expand
-# Factor
-# Complete the square
-# Summary
 
 # - Summary -
 
