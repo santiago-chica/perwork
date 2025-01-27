@@ -41,9 +41,9 @@ def math(question:dict):
 
         parsed_questions.append(
             {
-                'statement': question['statement'] + [base_64_encode(statement)],
-                'choices': [[]],
-                'answer': [base_64_encode(answer)]
+                'statement': base_64_encode(statement),
+                'choices': [],
+                'answer': base_64_encode(answer)
             }
         )
 
@@ -83,8 +83,8 @@ def ai_prompt(question:dict):
         dictionary = json.loads(raw_json)
 
         question = {
-            'statement': [base_64_encode(dictionary['question'])],
-            'answer': [base_64_encode(dictionary['correct_answer'])]
+            'statement': base_64_encode(dictionary['question']),
+            'answer': base_64_encode(dictionary['correct_answer'])
         }
 
         if answer_count > 0:
@@ -93,7 +93,7 @@ def ai_prompt(question:dict):
         for i in range(1, answer_count):
             key = 'wrong_answer_' + str(i)
             wrong_answer = dictionary[key]
-            answers.append([base_64_encode(wrong_answer)])
+            answers.append(base_64_encode(wrong_answer))
         
         shuffle(answers)
 

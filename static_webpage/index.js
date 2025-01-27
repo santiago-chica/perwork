@@ -132,9 +132,9 @@ function getQuestions() {
                 let question = {};
 
                 question.type = "generic";
-                question.statement = [utf8_to_b64(statement)];
-                question.choices = [[utf8_to_b64(options)]];
-                question.answer = [utf8_to_b64(answer)];
+                question.statement = utf8_to_b64(statement);
+                question.choices = [utf8_to_b64(options)];
+                question.answer = utf8_to_b64(answer);
 
                 questions.push(question);
                 }
@@ -174,7 +174,7 @@ function getQuestions() {
                 let question = {};
 
                 question.type = "math";
-                question.statement = [utf8_to_b64(statement)];
+                question.statement = utf8_to_b64(statement);
                 question.quantity = Number.parseInt(questionQuantity);
                 question.operation = operation;
                 question.configuration = configuration;
@@ -286,6 +286,8 @@ document.getElementById("add_question").addEventListener("click", async (e) => {
 
     const questionTypesJson = await getQuestionTypes();
     const mathTypesJson = await getMathTypes();
+
+    console.log(mathTypesJson);
 
     const question = createQuestion(questionTypesJson, mathTypesJson);
     questionArray.appendChild(question);

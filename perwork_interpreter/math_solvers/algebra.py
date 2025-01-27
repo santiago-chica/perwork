@@ -71,7 +71,7 @@ def eq_int_one_step(question:dict):
         can_repeat=False
     )
     statement = Eq(l * x, r)
-    choices = [[]]
+    choices = []
     answer = solve(statement, x)[0]
     return (statement, choices, answer)
 # Two step equations

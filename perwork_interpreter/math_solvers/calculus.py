@@ -47,7 +47,7 @@ def deriv_power(question:dict):
     )[0]
 
     statement = coefficient * x ** exponent
-    choices = [[]]
+    choices = []
     answer = diff(statement, x)
 
     return (statement, choices, answer)

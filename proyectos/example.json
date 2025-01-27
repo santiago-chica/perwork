@@ -10,13 +10,13 @@
     "questions": [
         {
             "type": "generic",
-            "statement": ["QSBjb250aW51YWNpb24gbGEgZGVmaW5pY2lvbiBkZSBsYSBpbnRlZ3JhbCBwb3IgcGFydGVz", "XFtcaW50IHVkdj11di1caW50IHZkdVxd", "QmFzYWRvIGVuIGVzbywgcmVzdWVsdmEgbGFzIHNpZ3VpZW50ZXMgb3BlcmFjaW9uZXM="],
-            "choices": [["SW50ZWdyYWwgZGVmaW5pZGFcXA=="],["XChcaW50IHhjb3MoeClkeFwp="],["XChcaW50IHhjb3MoeClkeFwp="],["XChcaW50IHhjb3MoeClkeFwp="]],
-            "answer": ["XFsgeF5uICsgeV5uID0gel5uIFxd"]
+            "statement": "QSBjb250aW51YWNpb24gbGEgZGVmaW5pY2lvbiBkZSBsYSBpbnRlZ3JhbCBwb3IgcGFydGVz",
+            "choices": ["SW50ZWdyYWwgZGVmaW5pZGFcXA==","XChcaW50IHhjb3MoeClkeFwp=","XChcaW50IHhjb3MoeClkeFwp=","XChcaW50IHhjb3MoeClkeFwp="],
+            "answer": "XFsgeF5uICsgeV5uID0gel5uIFxd"
         },
         {
             "type": "math",
-            "statement": ["UmVzdWVsdmEgbGEgZWN1YWNpb24u"],
+            "statement": "UmVzdWVsdmEgbGEgZWN1YWNpb24u",
             "quantity": 1,
             "operation": "algebra_eq_int_one_step",
             "configuration": {
@@ -26,7 +26,7 @@
         },
         {
             "type": "math",
-            "statement": ["UmVzdWVsdmEgbGEgZWN1YWNpb24u"],
+            "statement": "UmVzdWVsdmEgbGEgZWN1YWNpb24u",
             "quantity": 5,
             "operation": "arithmetic_int_add",
             "configuration": {
@@ -36,7 +36,7 @@
         },
         {
             "type": "math",
-            "statement": ["UmVzdWVsdmEgbGEgZWN1YWNpb24u"],
+            "statement": "UmVzdWVsdmEgbGEgZWN1YWNpb24u",
             "quantity": 1,
             "operation": "arithmetic_int_sub",
             "configuration": {
@@ -46,7 +46,7 @@
         },
         {
             "type": "math",
-            "statement": ["UmVzdWVsdmEgbGEgZWN1YWNpb24u"],
+            "statement": "UmVzdWVsdmEgbGEgZWN1YWNpb24u",
             "quantity": 10,
             "operation": "calculus_deriv_power",
             "configuration": {

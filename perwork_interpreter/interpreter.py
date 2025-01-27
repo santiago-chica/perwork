@@ -31,22 +31,20 @@ def verify_directories(project_str:str):
 
 # LaTeX related functions
 
-def list_to_latex(list:list, doc:Document):
-    if not list:
+def b64_to_latex(b64:list, doc:Document):
+    if not b64:
         return
-    for element in list:
-        decoded_element = b64decode(element).decode()
-        doc.append(NoEscape(decoded_element))
+    
+    decoded_element = b64decode(b64).decode()
+    doc.append(NoEscape(decoded_element))
 
 def list_to_enumerate(list:list, doc:Document):
     if not list or not list[0]:
         return
     with doc.create(Enumerate(enumeration_symbol=r'{\Alph*) }', options=NoEscape('wide, labelwidth=!, labelindent=0pt'))) as enum:
-        for option in list:
-            enum.add_item(r'')
-            for element in option:
-                decoded_element = b64decode(element).decode()
-                doc.append(NoEscape(decoded_element))
+        for element in list:
+            decoded_element = b64decode(element).decode()
+            enum.add_item(NoEscape(decoded_element))
 
 # Export assignment function (LaTeX)
 
@@ -113,10 +111,10 @@ def iterate_assignment(table_data, export_folder, sheet, header, worksheet_paths
         with doc.create(Enumerate(enumeration_symbol=enum_symbol, options=NoEscape('wide, labelwidth=!, labelindent=0pt'))) as enum:
             for question in entry['questions']:
                 enum.add_item(r'')
-                list_to_latex(question['statement'], doc)
+                b64_to_latex(question['statement'], doc)
                 list_to_enumerate(question['choices'], doc)
                 if answer:
-                    list_to_latex(question['answer'], doc)
+                    b64_to_latex(question['answer'], doc)
 
         file_name =f'{position}. {table_data["title"]} ({entry["student"]})'
         directory = 'worksheets' if not answer else 'solved_worksheets'
