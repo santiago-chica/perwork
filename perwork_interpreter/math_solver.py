@@ -13,6 +13,10 @@ def parse_math(question:dict):
         'arithmetic_int_add_sub': arithmetic.int_add_sub,
         'arithmetic_int_mul_div': arithmetic.int_mul_div,
         'arithmetic_int_summary': arithmetic.int_summary,
+        'arithmetic_order_basic': arithmetic.order_basic,
+        'arithmetic_order_include_exp': arithmetic.order_include_exp,
+        'arithmetic_order_include_paren': arithmetic.order_include_paren,
+        'arithmetic_order_include_exp_paren': arithmetic.order_include_exp_paren,
         'calculus_deriv_power': calculus.deriv_power,
         'algebra_eq_int_one_step': algebra.eq_int_one_step
     }.get(question['operation'])(config_table)

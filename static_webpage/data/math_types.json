@@ -64,6 +64,51 @@
                         }
                     }
                 ]
+            },
+            {
+                "label": "Orden de operaciones",
+                "operations": [
+                    {
+                        "label": "Operaciones básicas",
+                        "method": "arithmetic_order_basic",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10,
+                            "number_count": 4
+                        }
+                    },
+                    {
+                        "label": "Incluir exponentes",
+                        "method": "arithmetic_order_include_exp",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10,
+                            "minimum_exponent": 1,
+                            "maximum_exponent": 2,
+                            "number_count": 4
+                        }
+                    },
+                    {
+                        "label": "Incluir paréntesis",
+                        "method": "arithmetic_order_include_paren",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10,
+                            "number_count": 4
+                        }
+                    },
+                    {
+                        "label": "Incluir exponentes y paréntesis",
+                        "method": "arithmetic_order_include_exp_paren",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10,
+                            "minimum_exponent": 1,
+                            "maximum_exponent": 2,
+                            "number_count": 4
+                        }
+                    }
+                ]
             }
         ]
     },

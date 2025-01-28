@@ -1,11 +1,12 @@
 from numpy.random import randint, choice
 from sympy.abc import x, y
 from json import load as json_load
-from random import choice
+from random import choice, random
 from utils import (
     get_numbers_in_range,
     latexify,
-    string_to_tex
+    string_to_tex,
+    format_number
 )
 
 # - Integers -
@@ -99,23 +100,92 @@ def int_summary(config_table:dict):
 
 # - Order of operations -
 
-# Basic operations
-def order_basic(config_table:dict):
-    n1, n2, n3, n4 = get_numbers_in_range(
+# Utils
+def match_operation(statement, expression, n, operation):
+    match operation:
+        case 'add':
+            statement += f' + {n}'
+            expression += f'+{n}'
+        case 'substract':
+            statement += f' - {n}'
+            expression += f'-{n}'
+        case 'multiply':
+            statement += f' \\times {n}'
+            expression += f'*{n}'
+        case 'divide':
+            statement += f' \\div {n}'
+            expression += f'/{n}'
+        case 'exponentiate':
+            statement += f' ^ {n}'
+            expression += f'**{n}'
+    return (statement, expression)
+def generic_order_equation(config_table:dict, has_parenthesis:bool, has_exponent:bool):
+    numbers = get_numbers_in_range(
         config_table['minimum_integer'],
         config_table['maximum_integer'],
         [0],
-        4
+        config_table['number_count']
     )
-    statement = 2
+
+    statement = str(numbers[0])
+    expression = str(numbers[0])
+
+    next_number_close_parenthesis = False
+    
+    for index, n in enumerate(numbers):
+        operations = ['add', 'substract', 'multiply', 'divide']
+
+        if has_parenthesis: 
+            parenthesis = choice([True, False])
+        else:
+            parenthesis = False
+
+        if has_exponent:
+            exponent = random() < 0.4
+        else:
+            exponent = False
+
+        if exponent:
+            power = get_numbers_in_range(
+                config_table['minimum_exponent'],
+                config_table['maximum_exponent']
+            )
+            statement, expression = match_operation(statement, expression, power, 'exponentiate')
+
+        operation = choice(operations)
+
+        if next_number_close_parenthesis:
+            n = f'{n})'
+            next_number_close_parenthesis = False
+        elif parenthesis and index != len(numbers) - 1:
+            n = f'({n}'
+            next_number_close_parenthesis = True
+        
+        statement, expression = match_operation(statement, expression, n, operation)
+    
+    try:
+        answer = eval(expression)
+        answer = format_number(answer)
+    except Exception:
+        answer = "Sin respuesta"
+    
+    statement = string_to_tex(statement)
     choices = []
-    answer = statement.simplify()
+    answer = string_to_tex(str(answer))
 
-    return latexify((statement, choices, answer))
+    return (statement, choices, answer)
+# Basic operations
+def order_basic(config_table:dict):
+    return generic_order_equation(config_table, False, False)
 # Include exponents
+def order_include_exp(config_table:dict):
+    return generic_order_equation(config_table, False, True)
 # Include parentheses
+def order_include_paren(config_table:dict):
+    return generic_order_equation(config_table, True, False)
 # Include exponents and parentheses
-
+def order_include_exp_paren(config_table:dict):
+    return generic_order_equation(config_table, True, True)
 # - Fractions -
 
 # TODO
