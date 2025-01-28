@@ -1,6 +1,12 @@
 from base64 import b64encode
 from numpy.random import choice
 from sympy import latex
+from math import (
+    gcd,
+)
+from random import(
+    randint
+)
 # Encoding
 
 def base_64_encode(txt:str):
@@ -24,6 +30,14 @@ def format_number(number):
         return int(number)
     return round(number, 2)
 
+MAX_ATTEMPTS = 50
+def coprime_number(number, max):
+    attempts = 0
+    while attempts < MAX_ATTEMPTS:
+        candidate = randint(1, max)
+        if gcd(candidate, number) == 1:
+            return candidate
+    return 1
 def latexify(question_tuple:tuple):
     statement, choices, answer = question_tuple
 
