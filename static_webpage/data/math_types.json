@@ -212,6 +212,106 @@
         ]
     },
     {
+        "label": "Teoría de números",
+        "subcategories": [
+            {
+                "label": "Enteros",
+                "operations": [
+                    {
+                        "label": "Prueba de divisibilidad",
+                        "method": "number_theory_divisibility",
+                        "configuration": {
+                            "minimum_factor": 0,
+                            "maximum_factor": 10,
+                            "minimum_prime": 2,
+                            "maximum_prime": 13
+                        }
+                    },
+                    {
+                        "label": "Prueba de primo",
+                        "method": "number_theory_prime",
+                        "configuration": {
+                            "minimum_prime": 2,
+                            "maximum_prime": 30
+                        }
+                    },
+                    {
+                        "label": "Factorización de primos",
+                        "method": "number_theory_prime_fac",
+                        "configuration": {
+                            "minimum_factor_count": 2,
+                            "maximum_factor_count": 5,
+                            "minimum_prime": 2,
+                            "maximum_prime": 7
+                        }
+                    },
+                    {
+                        "label": "Divisores",
+                        "method": "number_theory_divisors",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 30
+                        }
+                    },
+                    {
+                        "label": "Máximo común divisor",
+                        "method": "number_theory_gcd",
+                        "configuration": {
+                            "minimum_factor": 2,
+                            "maximum_factor": 10,
+                            "minimum_divisor": 2,
+                            "maximum_divisor": 13
+                        }
+                    },
+                    {
+                        "label": "Mínimo común múltiplo",
+                        "method": "number_theory_lcm",
+                        "configuration": {
+                            "minimum_factor": 2,
+                            "maximum_factor": 10,
+                            "minimum_divisor": 2,
+                            "maximum_divisor": 13
+                        }
+                    },
+                    {
+                        "label": "Mínimo común múltiplo y máximo común divisor",
+                        "method": "number_theory_gcd_lcm",
+                        "configuration": {
+                            "minimum_factor": 2,
+                            "maximum_factor": 10,
+                            "minimum_divisor": 2,
+                            "maximum_divisor": 13
+                        }
+                    },
+                    {
+                        "label": "Número relativemente primo",
+                        "method": "number_theory_rel_prime",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 30
+                        }
+                    },
+                    {
+                        "label": "Resumen",
+                        "method": "number_theory_summary",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 30,
+                            "minimum_factor": 0,
+                            "maximum_factor": 10,
+                            "minimum_prime": 2,
+                            "maximum_prime": 13,
+                            "minimum_factor_count": 2,
+                            "maximum_factor_count": 5,
+                            "minimum_divisor": 2,
+                            "maximum_divisor": 13
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
         "label": "Algebra",
         "subcategories": [
             {

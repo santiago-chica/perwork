@@ -31,6 +31,7 @@ def format_number(number):
     return round(number, 2)
 
 MAX_ATTEMPTS = 50
+
 def coprime_number(number, max):
     attempts = 0
     while attempts < MAX_ATTEMPTS:
@@ -38,6 +39,31 @@ def coprime_number(number, max):
         if gcd(candidate, number) == 1:
             return candidate
     return 1
+
+def is_prime(number):
+    if number <= 1:
+        return False
+
+    for x in range(2, number):
+        if not number % x:
+            return False
+    return True
+
+def prime_number_list(minimum, maximum):
+    return [n for n in range(max(2, minimum), maximum) if is_prime(n)]
+
+def get_composite_and_prime(minimum, maximum):
+    composites = []
+    primes = []
+    
+    for n in range(max(2, minimum), maximum):
+        if is_prime(n):
+            primes.append(n)
+        else:
+            composites.append(n)
+
+    return composites, primes
+
 def latexify(question_tuple:tuple):
     statement, choices, answer = question_tuple
 

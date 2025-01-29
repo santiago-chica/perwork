@@ -39,7 +39,7 @@ def math(question:dict):
         parsed_questions.append(
             {
                 'statement': base_64_encode(statement),
-                'choices': [],
+                'choices': [base_64_encode(choice) for choice in choices],
                 'answer': base_64_encode(answer)
             }
         )

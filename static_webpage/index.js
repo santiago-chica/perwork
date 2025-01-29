@@ -142,8 +142,8 @@ function getQuestions() {
             case "math":
                 {
                 const firstContainer = child.querySelector('div');
-                const statement = firstContainer.querySelector('input[placeholder="Enunciado"]').value
-                const questionQuantity = firstContainer.querySelector('input[placeholder="Cantidad de preguntas"]').value
+                const statement = firstContainer.querySelector('input[placeholder="Enunciado"]').value || "Enunciado";
+                const questionQuantity = firstContainer.querySelector('input[placeholder="Cantidad de preguntas"]').value;
 
 
 

@@ -1,5 +1,4 @@
-from numpy.random import randint, choice
-from json import load as json_load
+from numpy.random import choice
 from random import choice, random
 from utils import (
     get_numbers_in_range,

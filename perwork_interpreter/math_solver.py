@@ -28,6 +28,15 @@ def parse_math(question:dict):
         'arithmetic_frac_mul_div': arithmetic.frac_mul_div,
         'arithmetic_frac_summary': arithmetic.frac_summary,
         'arithmetic_summary': arithmetic.summary,
+        'number_theory_divisibility': number_theory.divisibility, # Number theory
+        'number_theory_prime': number_theory.prime,
+        'number_theory_prime_fac': number_theory.prime_fac,
+        'number_theory_divisors': number_theory.divisors,
+        'number_theory_gcd': number_theory.gcd,
+        'number_theory_lcm': number_theory.lcm,
+        'number_theory_gcd_lcm': number_theory.gcd_lcm,
+        'number_theory_rel_prime': number_theory.rel_prime,
+        'number_theory_summary': number_theory.summary,
         'calculus_deriv_power': calculus.deriv_power,
         'algebra_eq_int_one_step': algebra.eq_int_one_step
     }.get(question['operation'])(config_table)
