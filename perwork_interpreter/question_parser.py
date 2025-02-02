@@ -7,6 +7,7 @@ from utils import base_64_encode
 from math_solver import parse_math
 from sympy import latex
 from os import getenv
+from base64 import b64decode
 
 api_key = getenv("gemini_api")
 system_instructions = """Tienes encargado crear preguntas para una prueba. Considera lo siguiente:
@@ -36,9 +37,11 @@ def math(question:dict):
 
         statement, choices, answer = parse_math(question)
 
+        final_statement = b64decode(question['statement']).decode() + statement
+
         parsed_questions.append(
             {
-                'statement': base_64_encode(statement),
+                'statement': base_64_encode(final_statement),
                 'choices': [base_64_encode(choice) for choice in choices],
                 'answer': base_64_encode(answer)
             }

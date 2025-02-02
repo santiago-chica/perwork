@@ -315,6 +315,247 @@
         "label": "Algebra",
         "subcategories": [
             {
+                "label": "Radicales",
+                "operations": [
+                    {
+                        "label": "Suma",
+                        "method": "algebra_rad_add",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 20,
+                            "minimum_square": 1,
+                            "maximum_square": 4,
+                            "minimum_prime": 2,
+                            "maximum_prime": 13
+                        }
+                    },
+                    {
+                        "label": "Resta",
+                        "method": "algebra_rad_sub",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 20,
+                            "minimum_square": 1,
+                            "maximum_square": 4,
+                            "minimum_prime": 2,
+                            "maximum_prime": 13
+                        }
+                    },
+                    {
+                        "label": "Multiplicación",
+                        "method": "algebra_rad_mul",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 20,
+                            "minimum_prime": 2,
+                            "maximum_prime": 13
+                        }
+                    },
+                    {
+                        "label": "Distribución",
+                        "method": "algebra_rad_dis",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 20,
+                            "minimum_prime": 2,
+                            "maximum_prime": 13
+                        }
+                    },
+                    {
+                        "label": "Racionalizar",
+                        "method": "algebra_rad_rat",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 20,
+                            "minimum_prime": 2,
+                            "maximum_prime": 13
+                        }
+                    },
+                    {
+                        "label": "Simplificar",
+                        "method": "algebra_rad_simplify",
+                        "configuration": {
+                            "minimum_factor": 2,
+                            "maximum_factor": 6,
+                            "minimum_factor_count": 2,
+                            "maximum_factor_count": 4
+                        }
+                    },
+                    {
+                        "label": "Resumen",
+                        "method": "algebra_rad_summary",
+                        "configuration": {
+                            "minimum_square": 1,
+                            "maximum_square": 4,
+                            "minimum_integer": 0,
+                            "maximum_integer": 20,
+                            "minimum_prime": 2,
+                            "maximum_prime": 13,
+                            "minimum_factor": 2,
+                            "maximum_factor": 10,
+                            "minimum_factor_count": 2,
+                            "maximum_factor_count": 5
+                        }
+                    }
+                ]
+            },
+            {
+                "label": "Números complejos",
+                "operations": [
+                    {
+                        "label": "Suma",
+                        "method": "algebra_com_add",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "Resta",
+                        "method": "algebra_com_sub",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "Multiplicación",
+                        "method": "algebra_com_mul",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "División",
+                        "method": "algebra_com_div",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "Hallar la norma",
+                        "method": "algebra_com_norm",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "Resumen",
+                        "method": "algebra_com_summary",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10
+                        }
+                    }
+                ]
+            },
+            {
+                "label": "Polinomios",
+                "operations": [
+                    {
+                        "label": "Evaluar en un punto",
+                        "method": "algebra_pol_eval",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10,
+                            "minimum_degree": 2,
+                            "maximum_degree": 3
+                        }
+                    },
+                    {
+                        "label": "Suma",
+                        "method": "algebra_pol_add",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10,
+                            "minimum_degree": 2,
+                            "maximum_degree": 3
+                        }
+                    },
+                    {
+                        "label": "Resta",
+                        "method": "algebra_pol_sub",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10,
+                            "minimum_degree": 2,
+                            "maximum_degree": 3
+                        }
+                    },
+                    {
+                        "label": "Expandir",
+                        "method": "algebra_pol_expand",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10,
+                            "minimum_degree": 2,
+                            "maximum_degree": 3
+                        }
+                    },
+                    {
+                        "label": "Factorizar",
+                        "method": "algebra_pol_factor",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "Multiplicación entre monomio y polinomio",
+                        "method": "algebra_pol_mul_mon_pol",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10,
+                            "minimum_degree": 2,
+                            "maximum_degree": 3
+                        }
+                    },
+                    {
+                        "label": "Multiplicación entre dos polinomios",
+                        "method": "algebra_pol_mul_pol_pol",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10,
+                            "minimum_degree": 2,
+                            "maximum_degree": 3
+                        }
+                    },
+                    {
+                        "label": "Expansión binomial",
+                        "method": "algebra_pol_bin_expansion",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10,
+                            "minimum_degree": 2,
+                            "maximum_degree": 4
+                        }
+                    },
+                    {
+                        "label": "Intercepción del eje horizontal",
+                        "method": "algebra_pol_hor_axis",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10,
+                            "minimum_degree": 2,
+                            "maximum_degree": 3
+                        }
+                    },
+                    {
+                        "label": "Resumen",
+                        "method": "algebra_pol_summary",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10,
+                            "minimum_degree": 2,
+                            "maximum_degree": 3
+                        }
+                    }
+                ]
+            },
+            {
                 "label": "Resolucion de ecuaciones",
                 "operations": [
                     {
@@ -332,6 +573,43 @@
     {
         "label": "Calculo",
         "subcategories": [
+            {
+                "label": "Integrales",
+                "operations": [
+                    {
+                        "label": "Integrales básicas",
+                        "method": "calculus_int_basic",
+                        "configuration": {
+                            "minimum_term_count": 3,
+                            "maximum_term_count": 5,
+                            "minimum_coefficient": 0,
+                            "maximum_coefficient": 10,
+                            "minimum_exponent": 0,
+                            "maximum_exponent": 6
+                        }
+                    },
+                    {
+                        "label": "Integración por partes",
+                        "method": "calculus_int_parts",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 6,
+                            "minimum_exponent": 1,
+                            "maximum_exponent": 3
+                        }
+                    },
+                    {
+                        "label": "Integrales por sustitución",
+                        "method": "calculus_int_u_sub",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10,
+                            "minimum_exponent": -2,
+                            "maximum_exponent": 2
+                        }
+                    }
+                ]
+            },
             {
                 "label": "Derivadas",
                 "operations": [
