@@ -32,7 +32,7 @@ if __name__ == '__main__':
     }
     set = solver.quartiles(table_data)
     print(set)
-    print(f'Mean: {sum(set) / len(set)}')
+
 
     
 

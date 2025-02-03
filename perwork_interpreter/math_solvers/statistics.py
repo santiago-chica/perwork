@@ -138,7 +138,7 @@ def quartiles(config_table:dict):
 
     set = generate_set(config_table)
 
-    statement = f'Calcule el {statement_text} de: {latex(set)}'
+    statement = f'Calcule el {statement_text} de: {string_to_tex(latex(set))}'
     choices = []
     answer = string_to_tex(str(format_number(quantile(set, quartile))))
 
