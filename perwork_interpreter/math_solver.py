@@ -2,6 +2,7 @@ import math_solvers.arithmetic as arithmetic
 import math_solvers.number_theory as number_theory
 import math_solvers.algebra as algebra
 import math_solvers.calculus as calculus
+import math_solvers.statistics as statistics
 
 def parse_math(question:dict):
     config_table = question['configuration']
@@ -94,6 +95,15 @@ def parse_math(question:dict):
         'algebra_system_three': algebra.system_three,
         'algebra_system_four': algebra.system_four,
         'algebra_summary': algebra.summary,
+        'statistics_mean': statistics.mean,
+        'statistics_median': statistics.median,
+        'statistics_mode': statistics.mode,
+        'statistics_range': statistics.range,
+        'statistics_geo_mean': statistics.geo_mean,
+        'statistics_variance': statistics.variance,
+        'statistics_std_dev': statistics.std_dev,
+        'statistics_quartiles': statistics.quartiles,
+        'statistics_summary': statistics.summary,
         'calculus_int_basic': calculus.int_basic, # Calculus
         'calculus_int_parts': calculus.int_parts,
         'calculus_int_u_sub': calculus.int_u_sub,

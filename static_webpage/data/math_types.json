@@ -951,5 +951,123 @@
                 ]
             }
         ]
+    },
+    {
+        "label": "Estadística",
+        "subcategories": [
+            {
+                "label": "Listas",
+                "operations": [
+                    {
+                        "label": "Media",
+                        "method": "statistics_mean",
+                        "configuration": {
+                            "minimum_count": 3,
+                            "maximum_count": 15,
+                            "minimum_std": 0,
+                            "maximum_std": 7,
+                            "minimum_integer": 0,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "Mediana",
+                        "method": "statistics_median",
+                        "configuration": {
+                            "minimum_count": 3,
+                            "maximum_count": 15,
+                            "minimum_std": 0,
+                            "maximum_std": 7,
+                            "minimum_integer": 0,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "Moda",
+                        "method": "statistics_mode",
+                        "configuration": {
+                            "minimum_count": 3,
+                            "maximum_count": 15,
+                            "minimum_std": 0,
+                            "maximum_std": 7,
+                            "minimum_integer": 0,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "Rango",
+                        "method": "statistics_range",
+                        "configuration": {
+                            "minimum_count": 3,
+                            "maximum_count": 15,
+                            "minimum_std": 0,
+                            "maximum_std": 7,
+                            "minimum_integer": 0,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "Media geométrica",
+                        "method": "statistics_geo_mean",
+                        "configuration": {
+                            "minimum_count": 3,
+                            "maximum_count": 15,
+                            "minimum_std": 0,
+                            "maximum_std": 7,
+                            "minimum_integer": 0,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "Varianza",
+                        "method": "statistics_variance",
+                        "configuration": {
+                            "minimum_count": 3,
+                            "maximum_count": 15,
+                            "minimum_std": 0,
+                            "maximum_std": 7,
+                            "minimum_integer": 0,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "Desviación estándar",
+                        "method": "statistics_std_dev",
+                        "configuration": {
+                            "minimum_count": 3,
+                            "maximum_count": 15,
+                            "minimum_std": 0,
+                            "maximum_std": 7,
+                            "minimum_integer": 0,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "Cuartiles",
+                        "method": "statistics_quartiles",
+                        "configuration": {
+                            "minimum_count": 3,
+                            "maximum_count": 15,
+                            "minimum_std": 0,
+                            "maximum_std": 7,
+                            "minimum_integer": 0,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "Resumen",
+                        "method": "statistics_summary",
+                        "configuration": {
+                            "minimum_count": 3,
+                            "maximum_count": 15,
+                            "minimum_std": 0,
+                            "maximum_std": 7,
+                            "minimum_integer": 0,
+                            "maximum_integer": 10
+                        }
+                    }
+                ]
+            }
+        ]
     }
 ]
