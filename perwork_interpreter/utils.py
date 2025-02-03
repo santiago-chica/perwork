@@ -15,6 +15,9 @@ def base_64_encode(txt:str):
 # Math solver
 
 def get_numbers_in_range(minimum, maximum, excluded=[], quantity=1, can_repeat=True):
+    if quantity == 0:
+        return []
+
     domain = [i for i in range(minimum, maximum + 1) if i not in excluded]
     
     picked = choice(domain, size=quantity, replace=can_repeat)

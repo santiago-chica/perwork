@@ -4,9 +4,9 @@ import utils
 if __name__ == '__main__':
     table_data = {
         "minimum_factor": 0,
-        "maximum_factor": 10,
+        "maximum_factor": 5,
         "minimum_integer": 0,
-        "maximum_integer": 10,
+        "maximum_integer": 5,
         "minimum_exponent": 0,
         "maximum_exponent": 6,
         "number_count": 5,
@@ -14,8 +14,8 @@ if __name__ == '__main__':
         "maximum_prime": 7,
         "minimum_term_count": 3,
         "maximum_term_count": 5,
-        "minimum_coefficient": -10,
-        "maximum_coefficient": 10,
+        "minimum_base": 2,
+        "maximum_base": 3,
         "minimum_divisor": 2,
         "maximum_divisor": 13,
         "minimum_square": 1,
@@ -24,6 +24,6 @@ if __name__ == '__main__':
         "maximum_degree": 3
     }
 
-    answer = solver.pol_hor_axis(table_data)
+    answer = solver.generic_system(table_data, 3)
     print(answer)
 

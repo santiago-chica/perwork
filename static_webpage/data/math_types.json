@@ -556,14 +556,339 @@
                 ]
             },
             {
-                "label": "Resolucion de ecuaciones",
+                "label": "Polinomios cuadráticos",
                 "operations": [
                     {
-                        "label": "Ecuaciones de un solo paso",
-                        "method": "algebra_eq_int_one_step",
+                        "label": "Expandir",
+                        "method": "algebra_qpol_expand",
                         "configuration": {
                             "minimum_integer": 0,
                             "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "Factorizar",
+                        "method": "algebra_qpol_factor",
+                        "configuration": {
+                            "minimum_factor": 0,
+                            "maximum_factor": 10
+                        }
+                    },
+                    {
+                        "label": "Completar el cuadrado",
+                        "method": "algebra_qpol_square",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 6
+                        }
+                    },
+                    {
+                        "label": "Resumen",
+                        "method": "algebra_qpol_summary",
+                        "configuration": {
+                            "minimum_factor": 0,
+                            "maximum_factor": 10,
+                            "minimum_integer": 0,
+                            "maximum_integer": 6
+                        }
+                    }
+                ]
+            },
+            {
+                "label": "Resolucion de ecuaciones",
+                "operations": [
+                    {
+                        "label": "Enteros - Ecuaciones de un solo paso",
+                        "method": "algebra_eq_int_one",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "Enteros - Ecuaciones de dos pasos",
+                        "method": "algebra_eq_int_two",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "Enteros - Resumen",
+                        "method": "algebra_eq_int_summary",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "Racionales - Ecuaciones de un solo paso",
+                        "method": "algebra_eq_rat_one",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "Racionales - Ecuaciones de dos pasos",
+                        "method": "algebra_eq_rat_two",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "Racionales - Ecuaciones de múltiples pasos",
+                        "method": "algebra_eq_rat_multi",
+                        "configuration": {
+                            "minimum_degree": 2,
+                            "maximum_degree": 3,
+                            "minimum_integer": -5,
+                            "maximum_integer": 5
+                        }
+                    },
+                    {
+                        "label": "Racionales - Resumen",
+                        "method": "algebra_eq_rat_summary",
+                        "configuration": {
+                            "minimum_degree": 2,
+                            "maximum_degree": 3,
+                            "minimum_integer": 0,
+                            "maximum_integer": 5
+                        }
+                    },
+                    {
+                        "label": "Radicales - Ecuaciones de un solo paso",
+                        "method": "algebra_eq_rad_one",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10,
+                            "minimum_prime": 2,
+                            "maximum_prime": 13
+                        }
+                    },
+                    {
+                        "label": "Radicales - Ecuaciones de dos pasos",
+                        "method": "algebra_eq_rad_two",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10,
+                            "minimum_prime": 2,
+                            "maximum_prime": 13
+                        }
+                    },
+                    {
+                        "label": "Radicales - Ecuaciones de múltiples pasos",
+                        "method": "algebra_eq_rad_multi",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10,
+                            "minimum_prime": 2,
+                            "maximum_prime": 13
+                        }
+                    },
+                    {
+                        "label": "Radicales - Resumen",
+                        "method": "algebra_eq_rad_summary",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10,
+                            "minimum_prime": 2,
+                            "maximum_prime": 13
+                        }
+                    },
+                    {
+                        "label": "Valor absoluto - Ecuaciones de enteros",
+                        "method": "algebra_eq_abs_int",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "Valor absoluto - Ecuaciones de racionales",
+                        "method": "algebra_eq_abs_rat",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "Valor absoluto - Ecuaciones de raíces",
+                        "method": "algebra_eq_abs_rad",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10,
+                            "minimum_prime": 2,
+                            "maximum_prime": 13
+                        }
+                    },
+                    {
+                        "label": "Ecuaciones cuadráticas - Cuadrados completados",
+                        "method": "algebra_eq_quad_comp_sqr",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "Ecuaciones cuadráticas - Soluciones enteras",
+                        "method": "algebra_eq_quad_int",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "Ecuaciones cuadráticas - Diferencia de cuadrados",
+                        "method": "algebra_eq_quad_diff_sqr",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "Ecuaciones cuadráticas - Soluciones complejas",
+                        "method": "algebra_eq_quad_comp",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "Ecuaciones cuadráticas - Soluciones radicales",
+                        "method": "algebra_eq_quad_rad",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10,
+                            "minimum_prime": 2,
+                            "maximum_prime": 13
+                        }
+                    },
+                    {
+                        "label": "Ecuaciones cuadráticas - Resumen",
+                        "method": "algebra_eq_quad_summary",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10,
+                            "minimum_prime": 2,
+                            "maximum_prime": 13
+                        }
+                    },
+                    {
+                        "label": "General - Ecuaciones factorizadas",
+                        "method": "algebra_eq_gen_factored",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10,
+                            "minimum_factor_count": 2,
+                            "maximum_factor_count": 4
+                        }
+                    },
+                    {
+                        "label": "General - Ecuaciones polinómicas",
+                        "method": "algebra_eq_gen_pol",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10,
+                            "minimum_degree": 2,
+                            "maximum_degree": 3
+                        }
+                    },
+                    {
+                        "label": "General - Ecuaciones multivariadas",
+                        "method": "algebra_eq_gen_multi",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "General - Resumen",
+                        "method": "algebra_eq_gen_summary",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10,
+                            "minimum_degree": 2,
+                            "maximum_degree": 3,
+                            "minimum_factor_count": 2,
+                            "maximum_factor_count": 4
+                        }
+                    },
+                    {
+                        "label": "Exponentes y logaritmos - Ecuaciones exponenciales",
+                        "method": "algebra_eq_exp",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10,
+                            "minimum_base": 2,
+                            "maximum_base": 3,
+                            "minimum_exponent": 2,
+                            "maximum_exponent": 3
+                        }
+                    },
+                    {
+                        "label": "Exponentes y logaritmos - Ecuaciones logarítmicas",
+                        "method": "algebra_eq_log",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 5
+                        }
+                    }
+                ]
+            },
+            {
+                "label": "Sistemas de ecuaciones",
+                "operations": [
+                    {
+                        "label": "Sistema de dos ecuaciones",
+                        "method": "algebra_system_two",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "Sistema de tres ecuaciones",
+                        "method": "algebra_system_three",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "Sistema de cuatro ecuaciones",
+                        "method": "algebra_system_four",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    }
+                ]
+            },
+            {
+                "label": "Resumen",
+                "operations": [
+                    {
+                        "label": "Resumen",
+                        "method": "algebra_summary",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 10,
+                            "minimum_square": 1,
+                            "maximum_square": 2,
+                            "minimum_prime": 2,
+                            "maximum_prime": 13,
+                            "minimum_factor_count": 2,
+                            "maximum_factor_count": 4,
+                            "minimum_factor": 2,
+                            "maximum_factor": 5,
+                            "minimum_degree": 2,
+                            "maximum_degree": 3,
+                            "minimum_exponent": 2,
+                            "maximum_exponent": 3,
+                            "minimum_base": 2,
+                            "maximum_base": 3
                         }
                     }
                 ]

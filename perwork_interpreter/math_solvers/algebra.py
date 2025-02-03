@@ -8,10 +8,15 @@ from sympy import (
     expand,
     I,
     Function,
-    solve
+    solve,
+    Eq,
+    Rational,
+    Abs,
+    Symbol,
+    log
 )
 from numpy.random import randint, choice
-from sympy.abc import x, y
+from sympy.abc import x, y, z
 from utils import (
     get_numbers_in_range,
     latexify,
@@ -445,6 +450,9 @@ def pol_hor_axis(config_table:dict):
             config_table['maximum_integer'],
             [0]
         )
+        invert = choice([True, False])
+        if invert:
+            a *= -1
         f *= (x + a)
     
     f = f.expand()
@@ -472,18 +480,77 @@ def pol_summary(config_table:dict):
 
 # - Quadratic polynomials -
 
-# TODO
 # Expand
+def qpol_expand(config_table:dict):
+    n, c_1, b_1, c_2, b_2 = get_numbers_in_range(
+        config_table['minimum_integer'],
+        config_table['maximum_integer'],
+        [0],
+        5
+    )
+
+    mon_1 = c_1 * x + b_1
+    mon_2 = c_2 * x + b_2
+
+    statement = n * mon_1 * mon_2
+    choices = []
+    answer = statement.expand()
+
+    return latexify((statement, choices, answer))
 # Factor
+def qpol_factor(config_table:dict):
+    f_1, f_2 = get_numbers_in_range(
+        config_table['minimum_factor'],
+        config_table['maximum_factor'],
+        [0],
+        2
+    )
+
+    mon_1 = x + f_1
+    mon_2 = x + f_2
+
+    statement = string_to_tex(latex((mon_1 * mon_2).expand()))
+    choices = []
+    answer = string_to_tex(f'\\left({mon_1}\\right)\\left({mon_2}\\right)')
+
+    return (statement, choices, answer)
 # Complete the square
+def qpol_square(config_table:dict):
+    factor, coefficient, a, b = get_numbers_in_range(
+        config_table['minimum_integer'],
+        config_table['maximum_integer'],
+        [0],
+        4
+    )
+
+    is_add = choice([True, False])
+
+    if is_add:
+        equation = factor * (coefficient * x + a)**2 + b
+    else:
+        equation = factor * (coefficient * x - a)**2 + b
+
+    statement = string_to_tex(latex(equation.expand()))
+    choices = []
+    answer = string_to_tex(latex(equation))
+
+    return (statement, choices, answer)
 # Summary
+def qpol_summary(config_table:dict):
+    operator_array = [
+        qpol_expand,
+        qpol_factor,
+        qpol_square
+    ]
+    operation = choice(operator_array)
+    return operation(config_table)
 
 # - Equation Solving -
 
 # - Integers -
 
 # One step equations
-def eq_int_one_step(config_table:dict):
+def eq_int_one(config_table:dict):
     l, r = get_numbers_in_range(
         config_table['minimum_integer'],
         config_table['maximum_integer'],
@@ -496,65 +563,594 @@ def eq_int_one_step(config_table:dict):
     answer = solve(statement, x)[0]
     return latexify((statement, choices, answer))
 # Two step equations
-# Multi-step equations
+def eq_int_two(config_table:dict):
+    a, b, c = get_numbers_in_range(
+        config_table['minimum_integer'],
+        config_table['maximum_integer'],
+        [0],
+        3
+    )
+
+    statement = Eq(a * x + b, c)
+    choices = []
+    answer = solve(statement, x)[0]
+    
+    return latexify((statement, choices, answer))
 # Summary
+def eq_int_summary(config_table:dict):
+    operator_array = [
+        eq_int_one,
+        eq_int_two
+    ]
+    operation = choice(operator_array)
+    return operation(config_table)
 
 # - Rationals -
 
-# TODO
 # One step equations
+def eq_rat_one(config_table:dict):
+    n_1, n_2 = get_numbers_in_range(
+        config_table['minimum_integer'],
+        config_table['maximum_integer'],
+        [0],
+        2
+    )
+    d_1, d_2 = get_numbers_in_range(
+        config_table['minimum_integer'],
+        config_table['maximum_integer'],
+        [0, 1],
+        2
+    )
+
+    r_1 = Rational(n_1, d_1)
+    r_2 = Rational(n_2, d_2)
+
+    statement = Eq(r_1 * x, r_2)
+    choices = []
+    answer = solve(statement, x)[0]
+    return latexify((statement, choices, answer))
 # Two step equations
+def eq_rat_two(config_table:dict):
+    n_1, n_2, n_3 = get_numbers_in_range(
+        config_table['minimum_integer'],
+        config_table['maximum_integer'],
+        [0],
+        3
+    )
+    d_1, d_2, d_3 = get_numbers_in_range(
+        config_table['minimum_integer'],
+        config_table['maximum_integer'],
+        [0, 1],
+        3
+    )
+
+    r_1 = Rational(n_1, d_1)
+    r_2 = Rational(n_2, d_2)
+    r_3 = Rational(n_3, d_3)
+
+    statement = Eq(r_1 * x + r_2, r_3)
+    choices = []
+    answer = solve(statement, x)[0]
+
+    return latexify((statement, choices, answer))
 # Multi-step equations
+def eq_rat_multi(config_table:dict):
+    degree = get_numbers_in_range(
+        config_table['minimum_degree'],
+        config_table['maximum_degree'],
+        [0]
+    )
+
+    root_count = 2 * degree - 2
+
+    roots = get_numbers_in_range(
+        config_table['minimum_integer'],
+        config_table['maximum_integer'],
+        [0],
+        root_count,
+        False
+    )
+
+    numerator = (x + roots[0])
+    denominator = (x + roots[0])
+
+    for n in range(1, degree):
+        numerator *= (x + roots[n])
+    for n in range(degree, root_count):
+        denominator *= (x + roots[n])
+    
+    numerator = numerator.expand()
+    denominator = denominator.expand()
+
+    statement = Eq(numerator/denominator, 0)
+    choices = []
+    answer = solve(statement, x)
+
+    return latexify((statement, choices, answer))
 # Summary
+def eq_rat_summary(config_table:dict):
+    operator_array = [
+        eq_rat_one,
+        eq_rat_two,
+        eq_rat_multi
+    ]
+    operation = choice(operator_array)
+    return operation(config_table)
 
 # - Radicals -
 
-# TODO
 # One step equations
+def eq_rad_one(config_table:dict):
+    primes = prime_number_list(config_table['minimum_prime'], config_table['maximum_prime'])
+    prime = choice(primes)
+
+    n = get_numbers_in_range(
+        config_table['minimum_integer'],
+        config_table['maximum_integer'],
+        [0, 1]
+    )
+
+    statement = Eq(n * x, sqrt(prime))
+    choices = []
+    answer = solve(statement, x)[0]
+
+    return latexify((statement, choices, answer))
 # Two step equations
+def eq_rad_two(config_table:dict):
+    primes = prime_number_list(config_table['minimum_prime'], config_table['maximum_prime'])
+    prime = choice(primes)
+
+    a, b, c = get_numbers_in_range(
+        config_table['minimum_integer'],
+        config_table['maximum_integer'],
+        [0, 1],
+        3
+    )
+
+    statement = Eq(a * x + sqrt(prime), b * x + c)
+
+    if statement == False:
+        return eq_rad_two(config_table)
+
+    choices = []
+    answer = solve(statement, x)[0]
+
+    return latexify((statement, choices, answer))
 # Multi-step equations
+def eq_rad_multi(config_table:dict):
+    primes = prime_number_list(config_table['minimum_prime'], config_table['maximum_prime'])
+    prime = choice(primes)
+
+    a, b, c = get_numbers_in_range(
+        config_table['minimum_integer'],
+        config_table['maximum_integer'],
+        [0, 1],
+        3
+    )
+
+    statement = Eq(sqrt(a * x + b), c + sqrt(prime))
+    choices = []
+    answer = solve(statement, x)[0]
+
+    return latexify((statement, choices, answer))
 # Summary
+def eq_rad_summary(config_table:dict):
+    operator_array = [
+        eq_rad_one,
+        eq_rad_two,
+        eq_rad_multi
+    ]
+    operation = choice(operator_array)
+    return operation(config_table)
 
 # - Absolute Values -
 
-# TODO
 # Integer equations
+def eq_abs_int(config_table:dict):
+    x = Symbol('x', real = True)
+
+    a, b, c = get_numbers_in_range(
+        config_table['minimum_integer'],
+        config_table['maximum_integer'],
+        [0],
+        3
+    )
+
+    c = abs(c)
+
+    statement = Eq(abs(a * x + b), c)
+    choices = []
+    answer = solve(statement, x)
+
+    return latexify((statement, choices, answer))
 # Rational equations
+def eq_abs_rat(config_table:dict):
+    x = Symbol('x', real = True)
+
+    n_1, n_2, n_3 = get_numbers_in_range(
+        config_table['minimum_integer'],
+        config_table['maximum_integer'],
+        [0],
+        3
+    )
+    d_1, d_2, d_3 = get_numbers_in_range(
+        config_table['minimum_integer'],
+        config_table['maximum_integer'],
+        [0, 1],
+        3
+    )
+
+    r_1 = Rational(n_1, d_1)
+    r_2 = Rational(n_2, d_2)
+    r_3 = Rational(n_3, d_3)
+
+    r_3 = abs(r_3)
+
+    statement = Eq(abs(r_1 * x + r_2), r_3)
+    choices = []
+    answer = solve(statement, x)
+
+    return latexify((statement, choices, answer))
 # Radical equations
+def eq_abs_rad(config_table:dict):
+    primes = prime_number_list(config_table['minimum_prime'], config_table['maximum_prime'])
+    prime = choice(primes)
+
+    x = Symbol('x', real = True)
+
+    a, b = get_numbers_in_range(
+        config_table['minimum_integer'],
+        config_table['maximum_integer'],
+        [0],
+        2
+    )
+
+    b = abs(b)
+
+    statement = Eq(abs(sqrt(prime) * x + a), b)
+    choices = []
+    answer = solve(statement, x)
+
+    return latexify((statement, choices, answer))
 
 # - Quadratic Equations -
 
-# TODO
 # Completed squares
+def eq_quad_comp_sqr(config_table:dict):
+    a, b = get_numbers_in_range(
+        config_table['minimum_integer'],
+        config_table['maximum_integer'],
+        [0],
+        2
+    )
+
+    statement = Eq((x + a) ** 2, b ** 2)
+    choices = []
+    answer = solve(statement, x)
+
+    return latexify((statement, choices, answer))
 # Integer solutions
+def eq_quad_int(config_table:dict):
+    a, b = get_numbers_in_range(
+        config_table['minimum_integer'],
+        config_table['maximum_integer'],
+        [0],
+        2
+    )
+
+    if choice([True, False]):
+        a *= -1
+    if choice([True, False]):
+        b *= -1
+
+    mon_1 = x + a
+    mon_2 = x + b
+
+    statement = Eq((mon_1 * mon_2).expand(), 0)
+    choices = []
+    answer = solve(statement, x)
+
+    return latexify((statement, choices, answer))
 # Difference of squares
+def eq_quad_diff_sqr(config_table:dict):
+    a, b = get_numbers_in_range(
+        config_table['minimum_integer'],
+        config_table['maximum_integer'],
+        [0],
+        2
+    )
+
+    a **= 2
+    b **= 2
+
+    statement = Eq(a * x ** 2 - b, 0)
+    choices = []
+    answer = solve(statement, x)
+
+    return latexify((statement, choices, answer))
 # Complex number solutions
+def eq_quad_comp(config_table:dict):
+    x = Symbol('x', complex=True)
+
+    a, b = get_numbers_in_range(
+        config_table['minimum_integer'],
+        config_table['maximum_integer'],
+        [0],
+        2
+    )
+
+    mon_1 = a + b * I
+    mon_2 = a - b * I
+
+    mon_1 *= -1
+    mon_2 *= -1
+
+    equation = (x + mon_1) * (x + mon_2)
+
+    statement = Eq(equation.expand(), 0)
+    choices = []
+    answer = solve(statement, x)
+
+    return latexify((statement, choices, answer))
 # Radical solutions
+def eq_quad_rad(config_table:dict):
+    primes = prime_number_list(config_table['minimum_prime'], config_table['maximum_prime'])
+    prime = choice(primes)
+
+    a, b = get_numbers_in_range(
+        config_table['minimum_integer'],
+        config_table['maximum_integer'],
+        [0],
+        2
+    )
+
+    mon_1 = a * sqrt(prime)
+    mon_2 = b * sqrt(prime)
+    
+    mon_1 *= -1
+    mon_2 *= -1
+
+    equation = (x + mon_1) * (x + mon_2)
+
+    statement = Eq(equation.expand(), 0)
+    choices = []
+    answer = solve(statement, x)
+
+    return latexify((statement, choices, answer))
 # Summary
+def eq_quad_summary(config_table:dict):
+    operator_array = [
+        eq_quad_comp_sqr,
+        eq_quad_int,
+        eq_quad_diff_sqr,
+        eq_quad_comp,
+        eq_quad_rad
+    ]
+    operation = choice(operator_array)
+    return operation(config_table)
 
 # - General -
 
-# TODO
-# Completed squares
-# Integer solutions
-# Difference of squares
-# Complex number solutions
-# Radical solutions
+# Factored equations
+def eq_gen_factored(config_table:dict):
+    factor_count = get_numbers_in_range(
+        config_table['minimum_factor_count'],
+        config_table['maximum_factor_count'],
+        [0]
+    )
+
+    equation = 1
+    for _ in range(factor_count):
+        n = get_numbers_in_range(
+            config_table['minimum_integer'],
+            config_table['maximum_integer'],
+        )
+        equation *= (x + n)
+    
+    statement = Eq(equation, 0)
+    choices = []
+    answer = solve(statement, x)
+
+    return latexify((statement, choices, answer))
+# Polynomial equations
+def eq_gen_pol(config_table:dict):
+    degree = get_numbers_in_range(
+        config_table['minimum_degree'],
+        config_table['maximum_degree'],
+        [0]
+    )
+    equation = 1
+    for _ in range(degree):
+        n = get_numbers_in_range(
+            config_table['minimum_integer'],
+            config_table['maximum_integer'],
+        )
+        equation *= (x + n)
+    
+    statement = Eq(equation.expand(), 0)
+    choices = []
+    answer = solve(statement, x)
+
+    return latexify((statement, choices, answer))
+# Multi-variate equations
+def eq_gen_multi(config_table:dict):
+    a, b, c = get_numbers_in_range(
+        config_table['minimum_integer'],
+        config_table['maximum_integer'],
+        [0],
+        3
+    )
+    
+    statement = Eq(a*x + b*y + c, 0)
+    choices = []
+    answer = solve(statement, x)
+
+    return latexify((statement, choices, answer))
 # Summary
+def eq_gen_summary(config_table:dict):
+    operator_array = [
+        eq_gen_factored,
+        eq_gen_pol,
+        eq_gen_multi
+    ]
+    operation = choice(operator_array)
+    return operation(config_table)
 
 # - Exponents and logarithms -
 
 # Exponential equations
+def eq_exp(config_table:dict):
+    l_a, l_b = get_numbers_in_range(
+        config_table['minimum_exponent'],
+        config_table['maximum_exponent'],
+        [0],
+        2
+    )
+    l_c, r_a, r_b, r_c = get_numbers_in_range(
+        config_table['minimum_integer'],
+        config_table['maximum_integer'],
+        [0],
+        4
+    )
+    base = get_numbers_in_range(
+        config_table['minimum_base'],
+        config_table['maximum_base'],
+        [0, 1]
+    )
+
+    l_exp = l_b * x + l_c
+    r_exp = r_b * x + r_c
+
+    l_term = (base ** l_a) ** l_exp
+    r_term = (base ** r_a) ** r_exp
+
+    exponent_equation = Eq(l_a * l_exp, r_a * r_exp)
+
+    statement = Eq(l_term, r_term)
+    choices = []
+    answer = solve(exponent_equation, x)
+
+    return latexify((statement, choices, answer))
 # Logarithmic equations
+def eq_log(config_table:dict):
+    a, b, c, d = get_numbers_in_range(
+        config_table['minimum_integer'],
+        config_table['maximum_integer'],
+        [0, 1],
+        4
+    )
+
+    a = abs(a)
+    d = abs(d)
+
+    statement = Eq(a, log(b * x + c, d))
+    choices = []
+    answer = solve(statement, x)
+
+    return latexify((statement, choices, answer))
 
 # - Systems of Equations -
 
-# TODO
+# Utils
+def generic_system(config_table:dict, dimension:int):
+    symbol_list = "xyzw"
+    symbols = [Symbol(s) for s in symbol_list]
+
+    statement = r'\begin{cases}'
+    equations = []
+
+    for i in range(dimension):
+        equation = 0
+        for j in range(dimension + 1):
+            n = get_numbers_in_range(
+                config_table['minimum_integer'],
+                config_table['maximum_integer'],
+                [0]
+            )
+            if j != dimension:
+                equation += n * symbols[j]
+            else:
+                equation += n
+
+        equations.append(equation)
+
+        separator = ''
+        if i != dimension - 1:
+            separator = '\\\\'
+
+        statement += latex(equation) + separator
+    statement += r'\end{cases}'
+
+    statement = string_to_tex(statement)
+    choices = []
+    answer = string_to_tex(
+        latex(
+            solve(equations, symbols)
+        )
+    )
+
+    return (statement, choices, answer)
 # Systems of two equations
+def system_two(config_table:dict):
+    return generic_system(config_table, 2)
 # Systems of three equations
+def system_three(config_table:dict):
+    return generic_system(config_table, 3)
 # Systems of four equations
+def system_four(config_table:dict):
+    return generic_system(config_table, 4)
 
 # - Summary -
 
-# TODO
 # Algebra summary
+def summary(config_table:dict):
+    operator_array = [
+        rad_add,
+        rad_sub,
+        rad_mul,
+        rad_dis,
+        rad_rat,
+        rad_simplify,
+        com_add,
+        com_sub,
+        com_mul,
+        com_div,
+        com_norm,
+        pol_add,
+        pol_sub,
+        pol_expand,
+        pol_factor,
+        pol_mul_mon_pol,
+        pol_mul_pol_pol,
+        pol_bin_expansion,
+        pol_hor_axis,
+        qpol_expand,
+        qpol_factor,
+        qpol_square,
+        eq_int_one,
+        eq_int_two,
+        eq_rat_one,
+        eq_rat_two,
+        eq_rat_multi,
+        eq_rad_one,
+        eq_rad_two,
+        eq_rad_multi,
+        eq_abs_int,
+        eq_abs_rat,
+        eq_abs_rad,
+        eq_quad_comp_sqr,
+        eq_quad_int,
+        eq_quad_diff_sqr,
+        eq_quad_comp,
+        eq_quad_rad,
+        eq_gen_factored,
+        eq_gen_pol,
+        eq_gen_multi,
+        eq_exp,
+        eq_log,
+        system_two,
+        system_three,
+        system_four
+    ]
+    operation = choice(operator_array)
+    return operation(config_table)
