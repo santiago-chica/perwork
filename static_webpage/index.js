@@ -55,6 +55,9 @@ function utf8_to_b64( str ) {
     return window.btoa(unescape(encodeURIComponent( str )));
 }
 
+questionTypes = await getQuestionTypes();
+mathTypes = await getMathTypes();
+
 // Submit the form
 
 document.getElementById("json_submit").addEventListener("click", async (e) => {
@@ -284,12 +287,9 @@ function createQuestion(questionTypesJson, mathTypesJson) {
 document.getElementById("add_question").addEventListener("click", async (e) => {
     e.preventDefault();
 
-    const questionTypesJson = await getQuestionTypes();
-    const mathTypesJson = await getMathTypes();
-
     console.log(mathTypesJson);
 
-    const question = createQuestion(questionTypesJson, mathTypesJson);
+    const question = createQuestion(questionTypes, mathTypes);
     questionArray.appendChild(question);
 })
 document.getElementById("del_question").addEventListener("click", (e) => {
