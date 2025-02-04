@@ -40,6 +40,9 @@ async function getMathTypes() {
     })
 }
 
+let questionTypes = null;
+let mathTypes = null;
+
 function downloadZip(blob, filename) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -54,9 +57,6 @@ function downloadZip(blob, filename) {
 function utf8_to_b64( str ) {
     return window.btoa(unescape(encodeURIComponent( str )));
 }
-
-questionTypes = await getQuestionTypes();
-mathTypes = await getMathTypes();
 
 // Submit the form
 
@@ -286,8 +286,14 @@ function createQuestion(questionTypesJson, mathTypesJson) {
 
 document.getElementById("add_question").addEventListener("click", async (e) => {
     e.preventDefault();
+;
+    if (!questionTypes) {
+        questionTypes = await getQuestionTypes();
+    }
 
-    console.log(mathTypesJson);
+    if (!mathTypes) {
+        mathTypes = await getMathTypes();
+    }
 
     const question = createQuestion(questionTypes, mathTypes);
     questionArray.appendChild(question);
