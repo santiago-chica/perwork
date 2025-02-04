@@ -4,88 +4,124 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=100, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <h1>Generar</h1>
-    <form id="perwork_json">
-      <div>
-        <label for="json_project">Nombre del proyecto</label> <br />
-        <input
-          type="text"
-          name="json_project"
-          id="json_project"
-          placeholder="Tarea"
-        />
-        <br />
-        <label for="json_project">Título</label> <br />
-        <input
-          type="text"
-          name="json_title"
-          id="json_title"
-          placeholder="Trabajo"
-        />
-        <br />
-        <label for="json_double_column">Dos columnas</label> <br />
-        <input
-          type="checkbox"
-          name="json_double_column"
-          id="json_double_column"
-        />
-        <br />
-        <label for="json_date">Fecha</label> <br />
-        <input type="date" name="json_date" id="json_date" />
-        <br />
-        <label for="json_author">Autor</label> <br />
-        <input
-          type="text"
-          name="json_author"
-          id="json_author"
-          placeholder="Autor"
-        />
-        <br />
-        <label for="json_description">Enunciado</label> <br />
-        <input
-          type="text"
-          name="json_description"
-          id="json_description"
-          placeholder="Descripción..."
-        />
-        <br />
-        <label for="json_question_keyword">Palabra de pregunta</label> <br />
-        <input
-          type="text"
-          name="json_question_keyword"
-          id="json_question_keyword"
-          placeholder="Pregunta"
-        />
-        <br />
-        <label for="json_students">Estudiantes</label> <br />
-        <input
-          type="text"
-          name="json_students"
-          id="json_students"
-          placeholder="Santiago, Juan, Diego"
-        />
-      </div>
-      <h2>Preguntas</h2>
-      <div>
-        <div id="question_array">
-          <!-- All JS questions -->
-        </div>
-        <div>
-          <button type="button" id="add_question">+</button>
-          <button type="button" id="del_question">-</button>
-        </div>
-      </div>
-      <div>
+    <div class="container">
+      <main class="main">
+        <section class="section generate">
+          <h1 class="section__title">Generar</h1>
+          <div class="generate__input-fields">
+            <div class="generate__input-field">
+              <input
+                type="text"
+                name="json_project"
+                id="json_project"
+                class="input-field__input"
+                required="require"
+              />
+              <label for="json_project" class="input-field__label"
+                >Nombre del proyecto</label
+              >
+            </div>
+            <div class="generate__input-field">
+              <input
+                type="text"
+                name="json_title"
+                id="json_title"
+                class="input-field__input"
+                required="require"
+              />
+              <label for="json_title" class="input-field__label">Título</label>
+            </div>
+            <div class="generate__input-field">
+              <input
+                type="text"
+                name="json_double_column"
+                id="json_double_column"
+                class="input-field__input"
+                required="require"
+              />
+              <label for="json_double_column" class="input-field__label"
+                >Dos columnas</label
+              >
+            </div>
+            <div class="generate__input-field">
+              <input
+                type="date"
+                name="json_date"
+                id="json_date"
+                class="input-field__input"
+              />
+              <label for="json_date" class="input-field__label">Fecha</label>
+            </div>
+            <div class="generate__input-field">
+              <input
+                type="text"
+                name="json_author"
+                id="json_author"
+                placeholder="Autor"
+                class="input-field__input"
+              />
+              <label for="json_author" class="input-field__label">Autor</label>
+            </div>
+            <div class="generate__input-field">
+              <input
+                type="text"
+                name="json_description"
+                id="json_description"
+                placeholder="Descripción..."
+                class="input-field__input"
+              />
+              <label for="json_description" class="input-field__label"
+                >Enunciado</label
+              >
+            </div>
+            <div class="generate__input-field">
+              <input
+                type="text"
+                name="json_question_keyword"
+                id="json_question_keyword"
+                placeholder="Pregunta"
+                class="input-field__input"
+              />
+              <label for="json_question_keyword" class="input-field__label"
+                >Palabra de pregunta</label
+              >
+            </div>
+            <div class="generate__input-field">
+              <input
+                type="text"
+                name="json_students"
+                id="json_students"
+                placeholder="Santiago, Juan, Diego"
+                class="input-field__input"
+              />
+              <label for="json_students" class="input-field__label"
+                >Estudiantes</label
+              >
+            </div>
+          </div>
+        </section>
+        <section class="section questions">
+          <h1 class="section__title">Preguntas</h1>
+          <div id="question_array">
+            <!-- All JS questions -->
+          </div>
+          <div>
+            <button type="button" id="add_question">+</button>
+            <button type="button" id="del_question">-</button>
+          </div>
+        </section>
+      </main>
+      <div class="btn-container">
         <button type="submit" id="json_submit">Enviar</button>
+        <div class="">
+          <h1>Boton de descargar</h1>
+          <div id="download_div"></div>
+        </div>
       </div>
-
-      <h1>Boton de descargar</h1>
-
-      <div id="download_div"></div>
-    </form>
+    </div>
     <script src="./index.html" defer></script>
   </body>
 </html>
