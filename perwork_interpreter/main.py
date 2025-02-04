@@ -4,8 +4,9 @@ from flask_cors import CORS
 from numpy.random import randint
 from pathlib import Path
 from json import load
+
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=["https://perwork-production.up.railway.app"])
 
 @app.post('/api/convert')
 def convert_json():
@@ -26,6 +27,4 @@ def convert_json():
         return {'success': False}
 
 if __name__ == '__main__':
-    app.run(
-        port=5000
-    )
+    app.run()
