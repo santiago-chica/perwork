@@ -1069,5 +1069,103 @@
                 ]
             }
         ]
+    },
+    {
+        "label": "Álgebra lineal",
+        "subcategories": [
+            {
+                "label": "Vectores",
+                "operations": [
+                    {
+                        "label": "2D - Suma",
+                        "method": "lin_algebra_vec_2d_add",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "2D - Resta",
+                        "method": "lin_algebra_vec_2d_sub",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "2D - Multiplicar escalar y vector",
+                        "method": "lin_algebra_vec_2d_scalar",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "2D - Producto punto",
+                        "method": "lin_algebra_vec_2d_dot",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "2D - Resumen",
+                        "method": "lin_algebra_vec_2d_summary",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "3D - Suma",
+                        "method": "lin_algebra_vec_3d_add",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "3D - Resta",
+                        "method": "lin_algebra_vec_3d_sub",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "3D - Multiplicar escalar y vector",
+                        "method": "lin_algebra_vec_3d_scalar",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "3D - Producto punto",
+                        "method": "lin_algebra_vec_3d_dot",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "3D - Producto cruz",
+                        "method": "lin_algebra_vec_3d_cross",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "3D - Resumen",
+                        "method": "lin_algebra_vec_3d_summary",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    }
+                ]
+            }
+        ]
     }
 ]

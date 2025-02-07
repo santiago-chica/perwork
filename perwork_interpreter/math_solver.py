@@ -2,6 +2,7 @@ import math_solvers.arithmetic as arithmetic
 import math_solvers.number_theory as number_theory
 import math_solvers.algebra as algebra
 import math_solvers.calculus as calculus
+import math_solvers.lin_algebra as lin_algebra
 import math_solvers.statistics as statistics
 
 def parse_math(question:dict):
@@ -95,7 +96,22 @@ def parse_math(question:dict):
         'algebra_system_three': algebra.system_three,
         'algebra_system_four': algebra.system_four,
         'algebra_summary': algebra.summary,
-        'statistics_mean': statistics.mean,
+        'calculus_int_basic': calculus.int_basic, # Calculus
+        'calculus_int_parts': calculus.int_parts,
+        'calculus_int_u_sub': calculus.int_u_sub,
+        'calculus_deriv_power': calculus.deriv_power,
+        'lin_algebra_vec_2d_add': lin_algebra.vec_2d_add, # Linear algebra
+        'lin_algebra_vec_2d_sub': lin_algebra.vec_2d_sub,
+        'lin_algebra_vec_2d_scalar': lin_algebra.vec_2d_scalar,
+        'lin_algebra_vec_2d_dot': lin_algebra.vec_2d_dot,
+        'lin_algebra_vec_2d_summary': lin_algebra.vec_2d_summary,
+        'lin_algebra_vec_3d_add': lin_algebra.vec_3d_add,
+        'lin_algebra_vec_3d_sub': lin_algebra.vec_3d_sub,
+        'lin_algebra_vec_3d_scalar': lin_algebra.vec_3d_scalar,
+        'lin_algebra_vec_3d_dot': lin_algebra.vec_3d_dot,
+        'lin_algebra_vec_3d_cross': lin_algebra.vec_3d_cross,
+        'lin_algebra_vec_3d_summary': lin_algebra.vec_3d_summary,
+        'statistics_mean': statistics.mean, # Statistics
         'statistics_median': statistics.median,
         'statistics_mode': statistics.mode,
         'statistics_range': statistics.range,
@@ -103,9 +119,5 @@ def parse_math(question:dict):
         'statistics_variance': statistics.variance,
         'statistics_std_dev': statistics.std_dev,
         'statistics_quartiles': statistics.quartiles,
-        'statistics_summary': statistics.summary,
-        'calculus_int_basic': calculus.int_basic, # Calculus
-        'calculus_int_parts': calculus.int_parts,
-        'calculus_int_u_sub': calculus.int_u_sub,
-        'calculus_deriv_power': calculus.deriv_power
+        'statistics_summary': statistics.summary
     }.get(question['operation'])(config_table)

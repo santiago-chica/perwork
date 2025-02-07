@@ -2,6 +2,7 @@ import math_solvers.statistics as solver
 import sympy.printing.latex as latex
 import numpy.random as rd
 import numpy as np
+from question_parser import ai_prompt
 import utils
 if __name__ == '__main__':
     table_data = {
@@ -32,7 +33,6 @@ if __name__ == '__main__':
     }
     set = solver.quartiles(table_data)
     print(set)
-
 
     
 

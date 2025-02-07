@@ -6,7 +6,7 @@ from pathlib import Path
 from json import load
 
 app = Flask(__name__)
-CORS(app, origins=["https://perwork-production.up.railway.app"])
+CORS(app)
 
 @app.post('/api/convert')
 def convert_json():

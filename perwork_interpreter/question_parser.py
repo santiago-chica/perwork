@@ -82,6 +82,8 @@ def ai_prompt(question:dict):
         raw_json = response.text
         dictionary = json.loads(raw_json)
 
+
+
         question = {
             'statement': base_64_encode(dictionary['question']),
             'answer': base_64_encode(dictionary['correct_answer'])
