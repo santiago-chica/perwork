@@ -17,7 +17,10 @@ from sympy import (
     log,
     Sum,
     DotProduct,
-    Mul
+    Mul,
+    Matrix,
+    trace,
+    det
 )
 from numpy import (
     clip,
@@ -202,33 +205,214 @@ def vec_3d_summary(config_table:dict):
 
 # - Matrices -
 
+def get_matrix(config_table:dict, dimensions:int, is_identity=False):
+    # Each row
+    matrix_information = []
+    for i in range(dimensions):
+        row = []
+        # Each dimension
+        for j in range(dimensions):
+            if is_identity:
+                n = 1 if i == j else 0
+            else:
+                n = get_numbers_in_range(
+                    config_table['minimum_integer'],
+                    config_table['maximum_integer']
+                )
+            row.append(n)
+        matrix_information.append(row)
+
+    matrix = Matrix(matrix_information)
+
+    if det(matrix) == 0:
+        matrix = get_matrix(config_table, dimensions, is_identity)
+
+    return matrix
+def get_vector(config_table:dict, dimensions:int):
+    vector_information = []
+    for _ in range(dimensions):
+        n = get_numbers_in_range(
+            config_table['minimum_integer'],
+            config_table['maximum_integer']
+        )
+        vector_information.append([n])
+    return Matrix(vector_information)
+
+def generic_add(config_table:dict, dimensions:int):
+    m1 = get_matrix(config_table, dimensions)
+    m2 = get_matrix(config_table, dimensions)
+
+    statement = string_to_tex(f'{latex(m1)} + {latex(m2)}')
+    choices = []
+    answer = string_to_tex(latex(m1 + m2))
+
+    return (statement, choices, answer)
+def generic_sub(config_table:dict, dimensions:int):
+    m1 = get_matrix(config_table, dimensions)
+    m2 = get_matrix(config_table, dimensions)
+
+    statement = string_to_tex(f'{latex(m1)} - {latex(m2)}')
+    choices = []
+    answer = string_to_tex(latex(m1 - m2))
+
+    return (statement, choices, answer)
+def generic_trace(config_table:dict, dimensions:int):
+    statement = get_matrix(config_table, dimensions)
+    choices = []
+    answer = trace(statement)
+
+    return latexify((statement, choices, answer))
+def generic_det(config_table:dict, dimensions:int):
+    statement = get_matrix(config_table, dimensions)
+    choices = []
+    answer = det(statement)
+
+    return latexify((statement, choices, answer))
+def generic_inv(config_table:dict, dimensions:int):
+    statement = get_matrix(config_table, dimensions)
+    choices = []
+    answer = statement.inv()
+
+    return latexify((statement, choices, answer))
+def generic_char_poly(config_table:dict, dimensions:int):
+    identity = get_matrix(config_table, dimensions, True)
+
+    statement = get_matrix(config_table, dimensions)
+    choices = []
+
+    second_matrix = statement - x * identity
+    polynomial = det(second_matrix)
+
+    answer = polynomial.expand()
+
+    return latexify((statement, choices, answer))
+def generic_eigenvals(config_table:dict, dimensions:int):
+    statement = get_matrix(config_table, dimensions)
+    choices = []
+    answer = statement.eigenvals(False)
+
+    return latexify((statement, choices, answer))
+def generic_eigenvects(config_table:dict, dimensions:int):
+    statement = get_matrix(config_table, dimensions)
+    choices = []
+    answer = statement.eigenvects(False)
+
+    return latexify((statement, choices, answer))
+def generic_vec_times_matrix(config_table:dict, dimensions:int):
+    m = get_matrix(config_table, dimensions)
+    v = get_vector(config_table, dimensions)
+
+    statement = string_to_tex(f'{latex(m)} \\cdot {latex(v)}')
+    choices = []
+    answer = string_to_tex(latex(m * v))
+
+    return (statement, choices, answer)
+def generic_multiply(config_table:dict, dimensions:int):
+    m1 = get_matrix(config_table, dimensions)
+    m2 = get_matrix(config_table, dimensions)
+
+    statement = string_to_tex(f'{latex(m1)} \\cdot {latex(m2)}')
+    choices = []
+    answer = string_to_tex(latex(m1 * m2))
+
+    return (statement, choices, answer)
 # - 2 x 2 matrices -
-# TODO
+
 # Add
+def m2x2_add(config_table:dict):
+    return generic_add(config_table, 2)
 # Subtract
+def m2x2_sub(config_table:dict):
+    return generic_sub(config_table, 2)
 # Trace
+def m2x2_trace(config_table:dict):
+    return generic_trace(config_table, 2)
 # Determinant
+def m2x2_det(config_table:dict):
+    return generic_det(config_table, 2)
 # Inverse
+def m2x2_inv(config_table:dict):
+    return generic_inv(config_table, 2)
 # Characteristic polynomial
+def m2x2_char_poly(config_table:dict):
+    return generic_char_poly(config_table, 2)
 # Eigenvalues
+def m2x2_eigenvals(config_table:dict):
+    return generic_eigenvals(config_table, 2)
 # Eigenvectors
+def m2x2_eigenvects(config_table:dict):
+    return generic_eigenvects(config_table, 2)
 # Vector times matrix
+def m2x2_vec_times_matrix(config_table:dict):
+    return generic_vec_times_matrix(config_table, 2)
 # Multiply
+def m2x2_multiply(config_table:dict):
+    return generic_multiply(config_table, 2)
 # Summary
+def m2x2_summary(config_table:dict):
+    operator_array = [
+        m2x2_add,
+        m2x2_sub,
+        m2x2_trace,
+        m2x2_det,
+        m2x2_inv,
+        m2x2_char_poly,
+        m2x2_eigenvals,
+        m2x2_eigenvects,
+        m2x2_vec_times_matrix,
+        m2x2_multiply
+    ]
+    operation = choice(operator_array)
+    return operation(config_table)
 
 # - 3 x 3 matrices -
-# TODO
+
 # Add
+def m3x3_add(config_table:dict):
+    return generic_add(config_table, 3)
 # Subtract
+def m3x3_sub(config_table:dict):
+    return generic_sub(config_table, 3)
 # Trace
+def m3x3_trace(config_table:dict):
+    return generic_trace(config_table, 3)
 # Determinant
+def m3x3_det(config_table:dict):
+    return generic_det(config_table, 3)
 # Inverse
+def m3x3_inv(config_table:dict):
+    return generic_inv(config_table, 3)
 # Characteristic polynomial
+def m3x3_char_poly(config_table:dict):
+    return generic_char_poly(config_table, 3)
 # Eigenvalues
+def m3x3_eigenvals(config_table:dict):
+    return generic_eigenvals(config_table, 3)
 # Eigenvectors
+def m3x3_eigenvects(config_table:dict):
+    return generic_eigenvects(config_table, 3)
 # Vector times matrix
+def m3x3_vec_times_matrix(config_table:dict):
+    return generic_vec_times_matrix(config_table, 3)
 # Multiply
+def m3x3_multiply(config_table:dict):
+    return generic_multiply(config_table, 3)
 # Summary
+def m3x3_summary(config_table:dict):
+    operator_array = [
+        m3x3_add,
+        m3x3_sub,
+        m3x3_trace,
+        m3x3_det,
+        m3x3_inv,
+        m3x3_char_poly,
+        m3x3_eigenvals,
+        m3x3_eigenvects,
+        m3x3_vec_times_matrix,
+        m3x3_multiply
+    ]
+    operation = choice(operator_array)
+    return operation(config_table)
 
 # - Other matrices -
 # TODO

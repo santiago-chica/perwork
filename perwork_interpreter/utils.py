@@ -71,7 +71,7 @@ def latexify(question_tuple:tuple):
 
     statement = latex(statement, mode='equation*', order='none')
     answer = latex(answer, mode='equation*', order='none')
-
+    
     return (statement, choices, answer)
 
 latex_prefix = '\\begin{equation*}'

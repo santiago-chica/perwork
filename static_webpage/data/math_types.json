@@ -1165,6 +1165,187 @@
                         }
                     }
                 ]
+            },
+            {
+                "label": "Matrices",
+                "operations": [
+                    {
+                        "label": "2x2 - Suma",
+                        "method": "lin_algebra_m2x2_add",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "2x2 - Resta",
+                        "method": "lin_algebra_m2x2_sub",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "2x2 - Traza",
+                        "method": "lin_algebra_m2x2_trace",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "2x2 - Determinante",
+                        "method": "lin_algebra_m2x2_det",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "2x2 - Inversa",
+                        "method": "lin_algebra_m2x2_inv",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "2x2 - Polinomio característico",
+                        "method": "lin_algebra_m2x2_char_poly",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "2x2 - Eigenvalores",
+                        "method": "lin_algebra_m2x2_eigenvals",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "2x2 - Eigenvectores",
+                        "method": "lin_algebra_m2x2_eigenvects",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "2x2 - Vector por matriz",
+                        "method": "lin_algebra_m2x2_vec_times_matrix",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "2x2 - Multiplicación",
+                        "method": "lin_algebra_m2x2_multiply",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "2x2 - Resumen",
+                        "method": "lin_algebra_m2x2_summary",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "3x3 - Suma",
+                        "method": "lin_algebra_m3x3_add",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "3x3 - Resta",
+                        "method": "lin_algebra_m3x3_sub",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "3x3 - Traza",
+                        "method": "lin_algebra_m3x3_trace",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "3x3 - Determinante",
+                        "method": "lin_algebra_m3x3_det",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "3x3 - Inversa",
+                        "method": "lin_algebra_m3x3_inv",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "3x3 - Polinomio característico",
+                        "method": "lin_algebra_m3x3_char_poly",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "3x3 - Eigenvalores",
+                        "method": "lin_algebra_m3x3_eigenvals",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "3x3 - Eigenvectores",
+                        "method": "lin_algebra_m3x3_eigenvects",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "3x3 - Vector por matriz",
+                        "method": "lin_algebra_m3x3_vec_times_matrix",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "3x3 - Multiplicación",
+                        "method": "lin_algebra_m3x3_multiply",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    },
+                    {
+                        "label": "3x3 - Resumen",
+                        "method": "lin_algebra_m3x3_summary",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
+                    }
+                ]
             }
         ]
     }
