@@ -896,7 +896,7 @@
         ]
     },
     {
-        "label": "Calculo",
+        "label": "Cálculo",
         "subcategories": [
             {
                 "label": "Integrales",
@@ -932,6 +932,33 @@
                             "minimum_exponent": -2,
                             "maximum_exponent": 2
                         }
+                    },
+                    {
+                        "label": "Resumen",
+                        "method": "calculus_int_summary",
+                        "configuration": {
+                            "minimum_term_count": 3,
+                            "maximum_term_count": 5,
+                            "minimum_integer": 0,
+                            "maximum_integer": 10,
+                            "minimum_exponent": -2,
+                            "maximum_exponent": 2,
+                            "minimum_coefficient": 0,
+                            "maximum_coefficient": 10
+                        }
+                    }
+                ]
+            },
+            {
+                "label": "Discontinuidades",
+                "operations": [
+                    {
+                        "label": "Funciones racionales",
+                        "method": "calculus_dis_rational",
+                        "configuration": {
+                            "minimum_integer": -10,
+                            "maximum_integer": 10
+                        }
                     }
                 ]
             },
@@ -942,9 +969,74 @@
                         "label": "Regla de la potencia",
                         "method": "calculus_deriv_power",
                         "configuration": {
+                            "minimum_term_count": 3,
+                            "maximum_term_count": 5,
+                            "minimum_coefficient": 0,
+                            "maximum_coefficient": 10,
+                            "minimum_exponent": 0,
+                            "maximum_exponent": 6
+                        }
+                    },
+                    {
+                        "label": "Regla del producto",
+                        "method": "calculus_deriv_product",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 6,
                             "minimum_exponent": 1,
-                            "maximum_exponent": 6,
-                            "minimum_coefficient": -10,
+                            "maximum_exponent": 3
+                        }
+                    },
+                    {
+                        "label": "Regla del cociente",
+                        "method": "calculus_deriv_quotient",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 6,
+                            "minimum_exponent": 1,
+                            "maximum_exponent": 3
+                        }
+                    },
+                    {
+                        "label": "Regla de la cadena",
+                        "method": "calculus_deriv_chain",
+                        "configuration": {
+                            "minimum_integer": 0,
+                            "maximum_integer": 6,
+                            "minimum_exponent": 1,
+                            "maximum_exponent": 3
+                        }
+                    },
+                    {
+                        "label": "Resumen",
+                        "method": "calculus_deriv_summary",
+                        "configuration": {
+                            "minimum_term_count": 3,
+                            "maximum_term_count": 5,
+                            "minimum_integer": 0,
+                            "maximum_integer": 10,
+                            "minimum_exponent": -2,
+                            "maximum_exponent": 2,
+                            "minimum_coefficient": 0,
+                            "maximum_coefficient": 10
+                        }
+                    }
+                ]
+            },
+            {
+                "label": "Resumen",
+                "operations": [
+                    {
+                        "label": "Resumen cálculo",
+                        "method": "calculus_summary",
+                        "configuration": {
+                            "minimum_term_count": 3,
+                            "maximum_term_count": 5,
+                            "minimum_integer": 0,
+                            "maximum_integer": 10,
+                            "minimum_exponent": -2,
+                            "maximum_exponent": 2,
+                            "minimum_coefficient": 0,
                             "maximum_coefficient": 10
                         }
                     }
@@ -1045,18 +1137,6 @@
                     {
                         "label": "Cuartiles",
                         "method": "statistics_quartiles",
-                        "configuration": {
-                            "minimum_count": 3,
-                            "maximum_count": 15,
-                            "minimum_std": 0,
-                            "maximum_std": 7,
-                            "minimum_integer": 0,
-                            "maximum_integer": 10
-                        }
-                    },
-                    {
-                        "label": "Resumen",
-                        "method": "statistics_summary",
                         "configuration": {
                             "minimum_count": 3,
                             "maximum_count": 15,

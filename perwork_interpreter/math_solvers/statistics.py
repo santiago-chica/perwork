@@ -143,18 +143,3 @@ def quartiles(config_table:dict):
     answer = string_to_tex(str(format_number(quantile(set, quartile))))
 
     return (statement, choices, answer)
-# Summary
-def summary(config_table:dict):
-    operator_array = [
-        mean,
-        median,
-        mode,
-        range,
-        geo_mean,
-        variance,
-        std_dev,
-        quartiles,
-        summary
-    ]
-    operation = choice(operator_array)
-    return operation(config_table)

@@ -99,7 +99,14 @@ def parse_math(question:dict):
         'calculus_int_basic': calculus.int_basic, # Calculus
         'calculus_int_parts': calculus.int_parts,
         'calculus_int_u_sub': calculus.int_u_sub,
+        'calculus_int_summary': calculus.int_summary,
+        'calculus_dis_rational': calculus.dis_rational,
         'calculus_deriv_power': calculus.deriv_power,
+        'calculus_deriv_product': calculus.deriv_product,
+        'calculus_deriv_quotient': calculus.deriv_quotient,
+        'calculus_deriv_chain': calculus.deriv_chain,
+        'calculus_deriv_summary': calculus.deriv_summary,
+        'calculus_summary': calculus.summary,
         'lin_algebra_vec_2d_add': lin_algebra.vec_2d_add, # Linear algebra
         'lin_algebra_vec_2d_sub': lin_algebra.vec_2d_sub,
         'lin_algebra_vec_2d_scalar': lin_algebra.vec_2d_scalar,
@@ -140,6 +147,5 @@ def parse_math(question:dict):
         'statistics_geo_mean': statistics.geo_mean,
         'statistics_variance': statistics.variance,
         'statistics_std_dev': statistics.std_dev,
-        'statistics_quartiles': statistics.quartiles,
-        'statistics_summary': statistics.summary
+        'statistics_quartiles': statistics.quartiles
     }.get(question['operation'])(config_table)
