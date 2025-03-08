@@ -7,13 +7,14 @@ from utils import base_64_encode
 from math_solver import parse_math
 from sympy import latex
 from os import getenv
+from base64 import b64decode
 
 api_key = getenv("gemini_api")
 system_instructions = """Tienes encargado crear preguntas para una prueba. Considera lo siguiente:
 1. Tienes que ser conciso y claro.
 2. Siempre escribir en español.
 3. No puedes repetir las preguntas.
-"""
+4. En caso de escribir numeros, simbolos o formulas, hazlo en formato LaTeX."""
 
 genai.configure(api_key=api_key)
 client = genai.GenerativeModel("gemini-1.5-flash", system_instruction=system_instructions)
@@ -36,14 +37,13 @@ def math(question:dict):
 
         statement, choices, answer = parse_math(question)
 
-        statement = latex(statement, mode='equation*', order='none')
-        answer = latex(answer, mode='equation*', order='none')
+        final_statement = b64decode(question['statement']).decode() + statement
 
         parsed_questions.append(
             {
-                'statement': question['statement'] + [base_64_encode(statement)],
-                'choices': [[]],
-                'answer': [base_64_encode(answer)]
+                'statement': base_64_encode(final_statement),
+                'choices': [base_64_encode(choice) for choice in choices],
+                'answer': base_64_encode(answer)
             }
         )
 
@@ -82,9 +82,11 @@ def ai_prompt(question:dict):
         raw_json = response.text
         dictionary = json.loads(raw_json)
 
+
+
         question = {
-            'statement': [base_64_encode(dictionary['question'])],
-            'answer': [base_64_encode(dictionary['correct_answer'])]
+            'statement': base_64_encode(dictionary['question']),
+            'answer': base_64_encode(dictionary['correct_answer'])
         }
 
         if answer_count > 0:
@@ -93,7 +95,7 @@ def ai_prompt(question:dict):
         for i in range(1, answer_count):
             key = 'wrong_answer_' + str(i)
             wrong_answer = dictionary[key]
-            answers.append([base_64_encode(wrong_answer)])
+            answers.append(base_64_encode(wrong_answer))
         
         shuffle(answers)
 

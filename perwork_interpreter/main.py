@@ -4,6 +4,7 @@ from flask_cors import CORS
 from numpy.random import randint
 from pathlib import Path
 from json import load
+
 app = Flask(__name__)
 CORS(app)
 
@@ -20,7 +21,7 @@ def convert_json():
             mimetype='application/zip',
             download_name='perwork'
         )
-
+    
     except Exception as e:
         print(e.__str__())
         return {'success': False}

@@ -1,5 +1,17 @@
 async function sendJsonAndGetZip(jsonText) {
-    const apiUrl = "https://desirable-courage-production.up.railway.app/api/convert";
+    /*
+    Public: https://desirable-courage-production.up.railway.app/api/convert
+    Private: http://127.0.0.1:5000/api/convert
+    */
+
+    const debug = false;
+
+    let apiUrl = "https://desirable-courage-production.up.railway.app/api/convert";
+
+    if (debug) {
+        apiUrl = "http://127.0.0.1:5000/api/convert";
+    }
+
     const response = await fetch(apiUrl, {
         method: "POST",
         headers: {
@@ -16,7 +28,7 @@ async function sendJsonAndGetZip(jsonText) {
 }
 
 async function getQuestionTypes() {
-    return await fetch('./data/question_types.json')
+    return await fetch('./data/question_types.json', {cache: "no-store"})
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Couldn't find JSON file.");
@@ -26,7 +38,7 @@ async function getQuestionTypes() {
 }
 
 async function getMathTypes() {
-    return await fetch('./data/math_types.json')
+    return await fetch('./data/math_types.json', {cache: "no-store"})
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Couldn't find JSON file.");
@@ -34,6 +46,9 @@ async function getMathTypes() {
             return response.json();
     })
 }
+
+let questionTypes = null;
+let mathTypes = null;
 
 function downloadZip(blob, filename) {
     const url = URL.createObjectURL(blob);
@@ -127,9 +142,9 @@ function getQuestions() {
                 let question = {};
 
                 question.type = "generic";
-                question.statement = [utf8_to_b64(statement)];
-                question.choices = [[utf8_to_b64(options)]];
-                question.answer = [utf8_to_b64(answer)];
+                question.statement = utf8_to_b64(statement);
+                question.choices = [utf8_to_b64(options)];
+                question.answer = utf8_to_b64(answer);
 
                 questions.push(question);
                 }
@@ -137,8 +152,8 @@ function getQuestions() {
             case "math":
                 {
                 const firstContainer = child.querySelector('div');
-                const statement = firstContainer.querySelector('input[placeholder="Enunciado"]').value
-                const questionQuantity = firstContainer.querySelector('input[placeholder="Cantidad de preguntas"]').value
+                const statement = firstContainer.querySelector('input[placeholder="Enunciado"]').value || " ";
+                const questionQuantity = firstContainer.querySelector('input[placeholder="Cantidad de preguntas"]').value;
 
 
 
@@ -169,7 +184,7 @@ function getQuestions() {
                 let question = {};
 
                 question.type = "math";
-                question.statement = [utf8_to_b64(statement)];
+                question.statement = utf8_to_b64(statement);
                 question.quantity = Number.parseInt(questionQuantity);
                 question.operation = operation;
                 question.configuration = configuration;
@@ -278,11 +293,16 @@ function createQuestion(questionTypesJson, mathTypesJson) {
 
 document.getElementById("add_question").addEventListener("click", async (e) => {
     e.preventDefault();
+;
+    if (!questionTypes) {
+        questionTypes = await getQuestionTypes();
+    }
 
-    const questionTypesJson = await getQuestionTypes();
-    const mathTypesJson = await getMathTypes();
+    if (!mathTypes) {
+        mathTypes = await getMathTypes();
+    }
 
-    const question = createQuestion(questionTypesJson, mathTypesJson);
+    const question = createQuestion(questionTypes, mathTypes);
     questionArray.appendChild(question);
 })
 document.getElementById("del_question").addEventListener("click", (e) => {

@@ -1,22 +1,14 @@
-FROM python:3.12
-WORKDIR /usr/local/app
+FROM python:3.11 
 
-# Install the application dependencies
-COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
+ADD . .
 
-# Copy in the source code
-COPY src ./src
-EXPOSE 5000
+COPY requirements.txt .
+RUN pip install -r ./requirements.txt
 
-# Latex packages
+
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends texlive-latex-recommended texlive-fonts-recommended && \
-    apt-get install -y --no-install-recommends texlive-latex-extra texlive-fonts-extra texlive-lang-all && \
-    rm -rf /var/lib/apt/lists/*
+apt-get install -y --no-install-recommends texlive-latex-recommended texlive-fonts-recommended && \
+apt-get install -y --no-install-recommends texlive-latex-extra texlive-fonts-extra texlive-lang-all && \
+rm -rf /var/lib/apt/lists/*
 
-# Setup an app user so the container doesn't run as the root user
-RUN useradd app
-USER app
-
-CMD ["uvicorn", "main.py"]
+CMD ["python", "main.py"]
