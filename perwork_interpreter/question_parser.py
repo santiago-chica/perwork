@@ -56,13 +56,19 @@ def ai_prompt(question:dict):
     quantity = question['quantity']
     answer_count = question['answer_count']
 
-    class Question(typing.TypedDict):
-        question: str
-        correct_answer: str
-    
+    schema = {
+        "type": "OBJECT",
+        "properties": {
+            "question": {"type": "STRING"},
+            "correct_answer": {"type": "STRING"}
+        },
+        "required": ["question", "correct_answer"]
+    }
 
-    for i in range(1, answer_count):
-        Question.__annotations__['wrong_answer_' + str(i)] = str
+    if answer_count > 1:
+        for i in range(1, answer_count+1):
+            schema['properties']['wrong_answer_' + str(i)] = {"type": 'STRING'}
+
 
     chat = client.start_chat(
         history=[
@@ -75,14 +81,12 @@ def ai_prompt(question:dict):
             "Pregunta #" + str(question_number),
             generation_config=genai.GenerationConfig(
                 response_mime_type="application/json",
-                response_schema=Question
+                response_schema=schema
             )
         )
 
         raw_json = response.text
         dictionary = json.loads(raw_json)
-
-
 
         question = {
             'statement': base_64_encode(dictionary['question']),
